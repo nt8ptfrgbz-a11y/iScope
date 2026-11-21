@@ -27,6 +27,8 @@ from macho import check_device_images, inspect
 from package import package_ipa
 from signing import default_resign_bundle_id, profile_entitlements, resign_ipa, signing_assets
 from dependencies import check_dependencies
+from build import build_hook, default_build_output
+from signing import default_resign_output, input_bundle_id
 
 WIRE = sys.stdout
 LOG = None
@@ -217,15 +219,93 @@ def validate_request(request):
     search = request.get('profileSearchDirectories', [])
     if not isinstance(search, list) or len(search) > 64 or any(not isinstance(p, str) or '\x00' in p for p in search):
         raise ValueError('描述文件搜索目录无效。')
+    source = request.get('sourcePath')
+    if source is not None and (not isinstance(source, str) or '\x00' in source or len(source) > 16384):
+        raise ValueError('Hook 源码路径无效。')
+    dylibs = request.get('dylibPaths')
+    if dylibs is not None and (not isinstance(dylibs, list) or len(dylibs) > 128 or
+                              any(not isinstance(p, str) or not p or '\x00' in p or len(p) > 16384 for p in dylibs)):
+        raise ValueError('dylib 路径列表无效。')
+    architectures = request.get('architectures')
+    if architectures is not None and (not isinstance(architectures, list) or not architectures or
+                                      any(arch not in ('arm64', 'arm64e') for arch in architectures)):
+        raise ValueError('编译架构支持 arm64、arm64e。')
+
+
+def unsigned_output(source, root):
+    output = root / (source.stem + '-unsigned.ipa')
+    counter = 2
+    while output.exists() or output.with_suffix('.ipa.report.json').exists():
+        output = root / (source.stem + f'-unsigned-{counter}.ipa')
+        counter += 1
+    return output
+
+
+def execute_standalone(request, mode, source, root, result, artifact):
+    if mode == 'buildSource':
+        hook = Path(request.get('sourcePath') or '').expanduser().resolve()
+        if not hook.is_file() or hook.suffix.lower() not in ('.m', '.mm'):
+            raise ValueError('请选择有效的 Hook .m 或 .mm 源码文件。')
+        stage('preflight', 'done', '使用所选 Hook 源码，产物输出到源码同目录。')
+        stage('build', 'running', '正在编译 ' + hook.name + '…')
+        dylib = build_hook([hook], default_build_output(hook), architectures=request.get('architectures'))
+        result['dylib'] = str(dylib)
+        artifact(); stage('build', 'done', '动态库已生成：' + dylib.name)
+        for item in ('package', 'sign', 'install'): stage(item, 'skipped')
+    elif mode == 'packageExisting':
+        if source is None or not source.is_file() or source.suffix.lower() != '.ipa':
+            raise ValueError('请选择有效的原始 IPA。')
+        dylibs = [Path(value).expanduser().resolve() for value in request.get('dylibPaths') or []]
+        if not dylibs: raise ValueError('请至少选择一个 dylib。')
+        if any(path.parent != root for path in dylibs): raise ValueError('所选 dylib 必须位于同一目录。')
+        result['bundleIdentifier'] = input_bundle_id(source)
+        stage('preflight', 'done', '使用已有 dylib 和原始 IPA，跳过源码编译。')
+        stage('build', 'skipped')
+        stage('package', 'running', '注入所选 dylib，生成未签名 IPA…')
+        unsigned = package_ipa(source, dylibs, unsigned_output(source, root))
+        result['unsignedIPA'] = str(unsigned)
+        artifact(); stage('package', 'done', '未签名 IPA 已生成：' + unsigned.name)
+        for item in ('sign', 'install'): stage(item, 'skipped')
+    else:
+        if source is None or not source.is_file() or source.suffix.lower() != '.ipa':
+            raise ValueError('请选择有效的待重签 IPA。')
+        bundle_id = request.get('bundleIdentifier', '').strip() or default_resign_bundle_id(input_bundle_id(source))
+        result['bundleIdentifier'] = bundle_id
+        profile = Path(request['profilePath']).expanduser().resolve() if request.get('profilePath') else None
+        extra = Path(request['entitlementsPath']).expanduser().resolve() if request.get('entitlementsPath') else None
+        assets = signing_assets(profile, bundle_id, request.get('identitySHA1') or None, [], extra,
+                                search_dirs=[source.parent, *[Path(value).expanduser() for value in request.get('profileSearchDirectories', [])]])
+        stage('preflight', 'done', '签名材料检查通过 · ' + bundle_id)
+        for item in ('build', 'package'): stage(item, 'skipped')
+        stage('sign', 'running', '重签所选 IPA，并复验最终产物…')
+        signed = resign_ipa(source, default_resign_output(source), assets, bundle_id,
+                            display_name=request.get('displayName') or None,
+                            strip_extensions=request.get('stripExtensions', True),
+                            isolate_url_schemes=request.get('isolateURLSchemes', False))
+        report = json.loads(signed.with_suffix('.ipa.report.json').read_text())
+        result.update(signedIPA=str(signed), signatureVerified=report['packaged_signature_verified'],
+                      removedComponents=report['removed_components'])
+        artifact(); stage('sign', 'done', '重签和复验完成：' + signed.name)
+        stage('install', 'skipped')
+    artifact(); emit('complete', result=result)
 
 
 def execute(request):
     global LOG
     validate_request(request)
     mode = request.get('target')
-    if mode not in ('build', 'package', 'sign', 'install', 'installExisting'): raise ValueError('未知执行目标。')
+    standalone = mode in ('buildSource', 'packageExisting', 'signExisting')
+    if mode not in ('build', 'package', 'sign', 'install', 'installExisting') and not standalone:
+        raise ValueError('未知执行目标。')
     root = Path(request['outputDirectory']).expanduser().resolve()
-    if request.get('projectPath') and root == Path(request['projectPath']).expanduser().resolve().parent:
+    if standalone:
+        if mode == 'buildSource':
+            if not request.get('sourcePath'): raise ValueError('请选择 Hook 源码。')
+            root = Path(request['sourcePath']).expanduser().resolve().parent
+        elif mode == 'signExisting':
+            if not request.get('inputPath'): raise ValueError('请选择待重签 IPA。')
+            root = Path(request['inputPath']).expanduser().resolve().parent
+    if not standalone and request.get('projectPath') and root == Path(request['projectPath']).expanduser().resolve().parent:
         raise ValueError('请选择工程内的 iScopeOutput 子目录或其他输出目录。')
     if request.get('inputPath'):
         input_path = Path(request['inputPath']).expanduser().resolve()
@@ -248,6 +328,9 @@ def execute(request):
     try:
         stage('preflight', 'running', '检查工程、输入、编译工具与签名材料…')
         source = Path(request['inputPath']).expanduser().resolve() if request.get('inputPath', '').strip() else None
+        if standalone:
+            execute_standalone(request, mode, source, root, result, artifact)
+            return
         if mode == 'installExisting':
             if source is None or not source.is_file(): raise ValueError('待安装 IPA 不存在。')
             result['signedIPA'] = str(source)

@@ -15,23 +15,29 @@ struct WorkflowView: View {
                 Image(systemName: "shippingbox.fill").font(.title).foregroundStyle(ScopeTheme.accent)
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Hook 编译与部署").font(.title3.bold())
-                    Text("修改实现，然后自动编译、注入、重签并安装到真机。")
+                    Text("单独编译、注入、重签或安装，也可运行完整的工程工作流。")
                         .font(.caption).foregroundStyle(.secondary)
                 }
                 Spacer()
+                Picker("操作模式", selection: $model.standaloneMode) {
+                    Text("独立操作").tag(true)
+                    Text("工程工作流").tag(false)
+                }.pickerStyle(.segmented).frame(width: 225).disabled(model.isRunning)
                 Button("关闭") { dismiss() }.keyboardShortcut(.cancelAction)
             }.padding(20)
             Divider()
-            if let error = model.error, model.selectedTab == 0 {
+            if let error = model.error, model.selectedTab == 0 && !model.standaloneMode {
                 Text(error).font(.caption).foregroundStyle(.red).textSelection(.enabled).padding(10)
             }
             HSplitView {
                 ScrollView { configuration.padding(18) }.frame(minWidth: 330, idealWidth: 360, maxWidth: 430)
                 VStack(spacing: 0) {
-                    Picker("内容", selection: $model.selectedTab) {
-                        Text("编辑 Hooks.m").tag(0); Text("执行日志与产物").tag(1)
-                    }.pickerStyle(.segmented).padding(12)
-                    if model.selectedTab == 0 { editor } else { output }
+                    if !model.standaloneMode {
+                        Picker("内容", selection: $model.selectedTab) {
+                            Text("编辑 Hooks.m").tag(0); Text("执行日志与产物").tag(1)
+                        }.pickerStyle(.segmented).padding(12)
+                    }
+                    if model.selectedTab == 0 && !model.standaloneMode { editor } else { output }
                 }.frame(minWidth: 500)
             }
             Divider()
@@ -44,14 +50,17 @@ struct WorkflowView: View {
                     if model.result?.signedIPA != nil {
                         Button("仅重试安装") { model.run(retryInstall: true) }.disabled(model.isProbing)
                     }
-                    Button("开始执行") { model.run() }.buttonStyle(.borderedProminent)
-                        .disabled(model.isProbing || (model.request.target != .installExisting && model.request.projectPath.isEmpty))
+                    if !model.standaloneMode {
+                        Button("开始执行") { model.run() }.buttonStyle(.borderedProminent)
+                            .disabled(model.isProbing || (model.request.target != .installExisting && model.request.projectPath.isEmpty))
+                    }
                 }
             }.padding(16)
         }
         .frame(width: 1060, height: 810)
         .tint(ScopeTheme.accent)
         .onAppear { if model.environment == nil { model.probe() } }
+        .sheet(isPresented: $model.showPackageSelection) { DylibPackageSelectionView(model: model) }
         .alert("重新读取源码？", isPresented: $confirmReload) {
             Button("取消", role: .cancel) {}
             Button("读取磁盘版本", role: .destructive, action: model.reloadSource)
@@ -60,22 +69,28 @@ struct WorkflowView: View {
 
     private var configuration: some View {
         VStack(alignment: .leading, spacing: 17) {
-            Text("输入与执行目标").font(.headline)
-            pathRow("Hook 工程", value: model.request.projectPath, action: model.chooseProject)
-            pathRow(model.request.target == .installExisting ? "已签名 IPA" : "原始 IPA / .app", value: model.request.inputPath) {
-                model.choosePath(\WorkflowRequest.inputPath, title: "选择 IPA 或 .app")
+            if model.standaloneMode {
+                StandaloneToolsView(model: model)
+            } else {
+                Text("输入与执行目标").font(.headline)
+                pathRow("Hook 工程", value: model.request.projectPath, action: model.chooseProject)
+                pathRow(model.request.target == .installExisting ? "已签名 IPA" : "原始 IPA / .app", value: model.request.inputPath) {
+                    model.choosePath(\WorkflowRequest.inputPath, title: "选择 IPA 或 .app")
+                }
+                Picker("执行到", selection: $model.request.target) {
+                    ForEach(WorkflowTarget.projectTargets) { Text($0.title).tag($0) }
+                }
+                pathRow("输出目录", value: model.request.outputDirectory) {
+                    model.choosePath(\WorkflowRequest.outputDirectory, title: "选择输出目录", directory: true)
+                }
+                Text("每次执行使用独立目录，保留构建副本、产物和完整日志。").font(.caption2).foregroundStyle(.secondary)
             }
-            Picker("执行到", selection: $model.request.target) {
-                ForEach(WorkflowTarget.allCases) { Text($0.title).tag($0) }
-            }
-            pathRow("输出目录", value: model.request.outputDirectory) {
-                model.choosePath(\WorkflowRequest.outputDirectory, title: "选择输出目录", directory: true)
-            }
-            Text("每次执行使用独立目录，保留构建副本、产物和完整日志。").font(.caption2).foregroundStyle(.secondary)
             Divider()
             Text("签名与设备").font(.headline)
             TextField("重签 Bundle ID（留空自动）", text: $model.request.bundleIdentifier).textFieldStyle(.roundedBorder)
-            Text("重签默认追加 .regisn；只编译 / 注入默认保留原 ID。Hook 过滤条件会在构建副本中同步适配。")
+            Text(model.standaloneMode
+                 ? "重签默认追加 .regisn。若源码有 Bundle ID 过滤条件，请填写与之匹配的重签 Bundle ID。"
+                 : "重签默认追加 .regisn；只编译 / 注入默认保留原 ID。Hook 过滤条件会在构建副本中同步适配。")
                 .font(.caption2).foregroundStyle(.secondary)
             TextField("App 显示名称（留空保留）", text: $model.request.displayName).textFieldStyle(.roundedBorder)
             Picker("证书", selection: $model.request.identitySHA1) {
@@ -105,6 +120,14 @@ struct WorkflowView: View {
             }
             DisclosureGroup("高级设置", isExpanded: $showAdvanced) {
                 VStack(alignment: .leading, spacing: 12) {
+                    if model.standaloneMode {
+                        Picker("源码编译架构", selection: $model.buildArchitecture) {
+                            Text("arm64（默认）").tag("arm64")
+                            Text("arm64e").tag("arm64e")
+                            Text("arm64 + arm64e").tag("arm64 arm64e")
+                        }
+                        Text("注入时 dylib 必须包含 IPA 主程序的全部架构。").font(.caption2).foregroundStyle(.secondary)
+                    }
                     pathRow("描述文件 · 留空自动匹配", value: model.request.profilePath) {
                         model.choosePath(\WorkflowRequest.profilePath, title: "选择 mobileprovision 描述文件")
                     }
@@ -161,7 +184,12 @@ struct WorkflowView: View {
                     artifactRow("未签名 IPA", path: result.unsignedIPA)
                     artifactRow(result.signatureVerified ? "签名 IPA · 已复验" : "签名 IPA", path: result.signedIPA)
                     HStack {
-                        Button("打开本次输出目录") { NSWorkspace.shared.open(URL(fileURLWithPath: result.runDirectory)) }
+                        Button("打开产物目录") {
+                            let product = [result.signedIPA, result.unsignedIPA, result.dylib].compactMap { $0 }.first
+                            let directory = product.map { URL(fileURLWithPath: $0).deletingLastPathComponent() } ?? URL(fileURLWithPath: result.runDirectory)
+                            NSWorkspace.shared.open(directory)
+                        }
+                        Button("完整日志") { NSWorkspace.shared.open(URL(fileURLWithPath: result.runDirectory).appendingPathComponent("workflow.log")) }
                         if result.installed { Label("已安装到 \(result.deviceName ?? "真机")", systemImage: "checkmark.circle.fill").foregroundStyle(.green) }
                     }.font(.caption)
                     if !result.removedComponents.isEmpty {

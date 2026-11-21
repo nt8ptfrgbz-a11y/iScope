@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-20",
+  "target": "/Users/edy/Desktop/oneaishop_flutter.ipa",
+  "target_sha256": "e9ce5a54d021786dfbad315456d8f187f8313f330374c40a4ca74bfaf742f582",
+  "app_sha256": "691eeb86a46e12ec25734fae33e7b256cafae8074a361fdf53986434a95bbf83",
+  "execution_scope": "static artifact analysis only",
+  "verified_direct_calls": 13,
+  "files": [
+    {
+      "path": "app-symbol-map.json",
+      "bytes": 3009389,
+      "sha256": "f6cafabfaaa76a27db49eb183481c7c689fd246f058d824f2cfe64dd859b707f"
+    },
+    {
+      "path": "business-call-evidence.json",
+      "bytes": 14698,
+      "sha256": "56627860d0a7689fa4bcbb92b3bf9256f8ef19f7507784fc44ea888abec8837c"
+    },
+    {
+      "path": "business-extra-disassembly.txt",
+      "bytes": 21894,
+      "sha256": "111e45490c9d536113795654ffe38cb7b754ceae891636fa30eb35760dce866d"
+    },
+    {
+      "path": "business-focused-disassembly.txt",
+      "bytes": 58563,
+      "sha256": "455a6eec1babb883dc70a9383ff17cdab848462d55ed2799917a97da2a77441f"
+    },
+    {
+      "path": "business-im-disassembly.txt",
+      "bytes": 30993,
+      "sha256": "dbc5fd94409f6051ac8fd946a8e7dc32824997dc5d14a17ad677e5b87e3b66a8"
+    },
+    {
+      "path": "entitlements.json",
+      "bytes": 296,
+      "sha256": "0d07f08814c6ec47b5cf7857431ccad732940069f97030a68a21042bacb5761a"
+    },
+    {
+      "path": "info.redacted.json",
+      "bytes": 3695,
+      "sha256": "be897937ee8d82e1ed6494d5b19a5dba2cc4a43644ef159eda3e3e17ab0fd215"
+    },
+    {
+      "path": "profile-summary.json",
+      "bytes": 698,
+      "sha256": "31a5d483f61f28d9b6711bc26d78239a1b1b5706a332772bd0d05775afdb710a"
+    },
+    {
+      "path": "verified-calls.json",
+      "bytes": 1690,
+      "sha256": "0edb807229be2e715ed16d3d95df3895337b4093e7c05783790c38e90dca06b5"
+    }
+  ]
+}

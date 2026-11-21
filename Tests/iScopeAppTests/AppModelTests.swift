@@ -3,6 +3,52 @@ import XCTest
 @testable import iScopeCore
 
 final class AppModelTests: XCTestCase {
+    @MainActor func testStandaloneDirectorySelectionAndRequestsDoNotRequireProject() throws {
+        let directory = FileManager.default.temporaryDirectory.resolvingSymlinksInPath().appendingPathComponent("iScope-tools 中文 \(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let model = WorkflowModel()
+        XCTAssertTrue(model.standaloneMode)
+        XCTAssertThrowsError(try model.preparePackage(directory: directory))
+        let dylib = directory.appendingPathComponent("Hook.dylib")
+        let ipa = directory.appendingPathComponent("Original.ipa")
+        try Data([1]).write(to: dylib); try Data([2]).write(to: ipa)
+        // A directory named like a dylib is not a selectable library.
+        try FileManager.default.createDirectory(at: directory.appendingPathComponent("Folder.dylib"), withIntermediateDirectories: false)
+        try model.preparePackage(directory: directory)
+        XCTAssertEqual(model.availableDylibs.map { $0.resolvingSymlinksInPath().path }, [dylib.resolvingSymlinksInPath().path])
+        XCTAssertEqual(model.selectedDylibs, Set(model.availableDylibs.map(\.path)))
+        XCTAssertEqual(URL(fileURLWithPath: model.packageIPA).resolvingSymlinksInPath().path, ipa.resolvingSymlinksInPath().path)
+        XCTAssertTrue(model.showPackageSelection)
+        let other = directory.appendingPathComponent("Hook-2.dylib")
+        try Data([3]).write(to: other)
+        try Data([4]).write(to: directory.appendingPathComponent("Original-unsigned.ipa"))
+        try model.preparePackage(directory: directory)
+        XCTAssertTrue(model.selectedDylibs.isEmpty, "Different build versions require a deliberate selection")
+        XCTAssertTrue(model.packageIPA.isEmpty, "Do not guess which IPA is original when several exist")
+        let selected = try XCTUnwrap(model.availableDylibs.first { $0.lastPathComponent == other.lastPathComponent })
+        model.selectedDylibs = [selected.path]
+        let externalIPA = directory.appendingPathComponent("Other Directory/App.ipa")
+        let injection = model.standaloneRequest(.packageExisting, input: externalIPA)
+        XCTAssertEqual(injection.projectPath, "")
+        XCTAssertEqual(injection.inputPath, externalIPA.path)
+        XCTAssertEqual(injection.outputDirectory, directory.path)
+        XCTAssertEqual(injection.dylibPaths, [selected.path])
+        let hook = directory.appendingPathComponent("Hook.m")
+        let build = model.standaloneRequest(.buildSource, input: hook)
+        XCTAssertEqual(build.sourcePath, hook.path)
+        XCTAssertEqual(build.inputPath, "")
+        XCTAssertEqual(build.outputDirectory, directory.path)
+        XCTAssertEqual(build.architectures, ["arm64"])
+        let sign = model.standaloneRequest(.signExisting, input: externalIPA)
+        XCTAssertEqual(sign.outputDirectory, externalIPA.deletingLastPathComponent().path)
+        XCTAssertNil(sign.sourcePath); XCTAssertNil(sign.dylibPaths)
+        let install = model.standaloneRequest(.installExisting, input: externalIPA)
+        XCTAssertEqual(install.inputPath, externalIPA.path)
+        XCTAssertEqual(install.outputDirectory, externalIPA.deletingLastPathComponent().path)
+        XCTAssertEqual(install.projectPath, "")
+    }
+
     private struct Fixture {
         let model: AppModel
         let directory: URL

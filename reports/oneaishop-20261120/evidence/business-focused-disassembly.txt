@@ -1,0 +1,1380 @@
+
+new TencentImCredentialService:
+   dee3c:	fd 79 bf a9	stp	x29, x30, [x15, #-0x10]!
+   dee40:	fd 03 0f aa	mov	x29, x15
+   dee44:	ef 81 00 d1	sub	x15, x15, #0x20
+   dee48:	a1 83 1f f8	stur	x1, [x29, #-0x8]
+   dee4c:	50 27 40 f9	ldr	x16, [x26, #0x48]
+   dee50:	ff 01 10 eb	cmp	x15, x16
+   dee54:	89 04 00 54	b.ls	0xdeee4
+   dee58:	40 3b 40 f9	ldr	x0, [x26, #0x70]
+   dee5c:	00 0c 51 f9	ldr	x0, [x0, #0x2218]
+   dee60:	50 47 40 f9	ldr	x16, [x26, #0x88]
+   dee64:	1f 00 10 eb	cmp	x0, x16
+   dee68:	61 00 00 54	b.ne	0xdee74
+   dee6c:	62 e7 64 f9	ldr	x2, [x27, #0x49c8]
+   dee70:	7a 70 19 94	bl	0x73b058  ; stub _iso_stub_InitLateFinalStaticFieldStub
+   dee74:	a0 83 1e f8	stur	x0, [x29, #-0x18]
+   dee78:	01 70 40 f8	ldur	x1, [x0, #0x7]
+   dee7c:	50 47 40 f9	ldr	x16, [x26, #0x88]
+   dee80:	3f 00 10 eb	cmp	x1, x16
+   dee84:	40 03 00 54	b.eq	0xdeeec
+   dee88:	a1 03 1f f8	stur	x1, [x29, #-0x10]
+   dee8c:	e3 79 01 94	bl	0x13d618  ; new AppApi
+   dee90:	e2 03 00 aa	mov	x2, x0
+   dee94:	a0 03 5f f8	ldur	x0, [x29, #-0x10]
+   dee98:	a2 03 1e f8	stur	x2, [x29, #-0x20]
+   dee9c:	40 70 00 f8	stur	x0, [x2, #0x7]
+   deea0:	a1 83 5e f8	ldur	x1, [x29, #-0x18]
+   deea4:	97 77 01 94	bl	0x13cd00  ; DioClient.oldDio
+   deea8:	13 00 00 94	bl	0xdeef4  ; new CsRepository
+   deeac:	a1 03 5e f8	ldur	x1, [x29, #-0x20]
+   deeb0:	01 70 00 f8	stur	x1, [x0, #0x7]
+   deeb4:	a1 83 5f f8	ldur	x1, [x29, #-0x8]
+   deeb8:	20 70 00 f8	stur	x0, [x1, #0x7]
+   deebc:	30 f0 5f 38	ldurb	w16, [x1, #-0x1]
+   deec0:	11 f0 5f 38	ldurb	w17, [x0, #-0x1]
+   deec4:	30 0a 50 8a	and	x16, x17, x16, lsr #2
+   deec8:	1f 82 5c ea	tst	x16, x28, lsr #32
+   deecc:	40 00 00 54	b.eq	0xdeed4
+   deed0:	ca 71 19 94	bl	0x73b5f8  ; stub _iso_stub_WriteBarrierWrappersStub
+   deed4:	e0 03 16 aa	mov	x0, x22
+   deed8:	ef 03 1d aa	mov	x15, x29
+   deedc:	fd 79 c1 a8	ldp	x29, x30, [x15], #0x10
+   deee0:	c0 03 5f d6	ret
+   deee4:	62 78 19 94	bl	0x73d06c  ; stub _iso_stub_StackOverflowSharedWithoutFPURegsStub
+   deee8:	dc ff ff 17	b	0xdee58
+   deeec:	69 f7 64 f9	ldr	x9, [x27, #0x49e8]
+   deef0:	9f 7a 19 94	bl	0x73d96c  ; stub _iso_stub_LateInitializationErrorSharedWithoutFPURegsStub
+
+new CsRepository:
+   deef4:	82 23 9e d2	mov	x2, #0xf11c
+   deef8:	22 07 a0 f2	movk	x2, #0x39, lsl #16
+   deefc:	bf 73 19 14	b	0x73bdf8
+
+SPHelper.getTokenInfo:
+  41081c:	fd 79 bf a9	stp	x29, x30, [x15, #-0x10]!
+  410820:	fd 03 0f aa	mov	x29, x15
+  410824:	ef 61 01 d1	sub	x15, x15, #0x58
+  410828:	50 27 40 f9	ldr	x16, [x26, #0x48]
+  41082c:	ff 01 10 eb	cmp	x15, x16
+  410830:	09 06 00 54	b.ls	0x4108f0
+  410834:	61 2b 40 91	add	x1, x27, #0xa, lsl #12
+  410838:	21 04 42 f9	ldr	x1, [x1, #0x408]
+  41083c:	a7 f0 f0 97	bl	0x4cad8  ; SPHelper.getString
+  410840:	a0 83 1b f8	stur	x0, [x29, #-0x48]
+  410844:	1f 00 16 eb	cmp	x0, x22
+  410848:	a1 00 00 54	b.ne	0x41085c
+  41084c:	e0 03 16 aa	mov	x0, x22
+  410850:	ef 03 1d aa	mov	x15, x29
+  410854:	fd 79 c1 a8	ldp	x29, x30, [x15], #0x10
+  410858:	c0 03 5f d6	ret
+  41085c:	e1 03 00 aa	mov	x1, x0
+  410860:	8e f0 f0 97	bl	0x4ca98  ; jsonDecode
+  410864:	e3 03 00 aa	mov	x3, x0
+  410868:	e2 03 16 aa	mov	x2, x22
+  41086c:	e1 03 16 aa	mov	x1, x22
+  410870:	a3 03 1b f8	stur	x3, [x29, #-0x50]
+  410874:	68 73 4b f9	ldr	x8, [x27, #0x16e0]
+  410878:	63 4f 40 91	add	x3, x27, #0x13, lsl #12
+  41087c:	63 40 45 f9	ldr	x3, [x3, #0xa80]
+  410880:	2b f1 f0 97	bl	0x4cd2c  ; assert type is Map<String, dynamic>?
+  410884:	a2 03 5b f8	ldur	x2, [x29, #-0x50]
+  410888:	e1 03 16 aa	mov	x1, x22
+  41088c:	1b 00 00 94	bl	0x4108f8  ; new TokenEntity.fromJson
+  410890:	ef 03 1d aa	mov	x15, x29
+  410894:	fd 79 c1 a8	ldp	x29, x30, [x15], #0x10
+  410898:	c0 03 5f d6	ret
+  41089c:	af 63 01 d1	sub	x15, x29, #0x58
+  4108a0:	a0 83 1b f8	stur	x0, [x29, #-0x48]
+  4108a4:	e1 03 16 aa	mov	x1, x22
+  4108a8:	82 00 80 d2	mov	x2, #0x4
+  4108ac:	af b1 0c 94	bl	0x73cf68  ; stub _iso_stub_AllocateArrayStub
+  4108b0:	70 4f 40 91	add	x16, x27, #0x13, lsl #12
+  4108b4:	10 4a 45 f9	ldr	x16, [x16, #0xa90]
+  4108b8:	10 70 01 f8	stur	x16, [x0, #0x17]
+  4108bc:	a1 83 5b f8	ldur	x1, [x29, #-0x48]
+  4108c0:	01 f0 01 f8	stur	x1, [x0, #0x1f]
+  4108c4:	e0 01 00 f9	str	x0, [x15]
+  4108c8:	a2 08 f0 97	bl	0x12b50  ; StringBase._interpolate
+  4108cc:	70 83 4b f9	ldr	x16, [x27, #0x1700]
+  4108d0:	f0 01 00 f9	str	x16, [x15]
+  4108d4:	e1 03 00 aa	mov	x1, x0
+  4108d8:	64 87 4b f9	ldr	x4, [x27, #0x1708]
+  4108dc:	c9 02 f1 97	bl	0x51400  ; LogUtils.e
+  4108e0:	e0 03 16 aa	mov	x0, x22
+  4108e4:	ef 03 1d aa	mov	x15, x29
+  4108e8:	fd 79 c1 a8	ldp	x29, x30, [x15], #0x10
+  4108ec:	c0 03 5f d6	ret
+  4108f0:	df b1 0c 94	bl	0x73d06c  ; stub _iso_stub_StackOverflowSharedWithoutFPURegsStub
+  4108f4:	d0 ff ff 17	b	0x410834
+
+TencentImCredentialService.loadLoginInfo:
+  44d590:	fd 79 bf a9	stp	x29, x30, [x15, #-0x10]!
+  44d594:	fd 03 0f aa	mov	x29, x15
+  44d598:	ef c1 00 d1	sub	x15, x15, #0x30
+  44d59c:	b6 83 1f f8	stur	x22, [x29, #-0x8]
+  44d5a0:	e5 03 02 aa	mov	x5, x2
+  44d5a4:	a1 03 1f f8	stur	x1, [x29, #-0x10]
+  44d5a8:	a2 83 1e f8	stur	x2, [x29, #-0x18]
+  44d5ac:	50 27 40 f9	ldr	x16, [x26, #0x48]
+  44d5b0:	ff 01 10 eb	cmp	x15, x16
+  44d5b4:	a9 0e 00 54	b.ls	0x44d788
+  44d5b8:	60 a3 40 91	add	x0, x27, #0x28, lsl #12
+  44d5bc:	00 88 41 f9	ldr	x0, [x0, #0x310]
+  44d5c0:	d8 65 ef 97	bl	0x26d20  ; stub _iso_stub_InitAsyncStub
+  44d5c4:	a0 03 5f f8	ldur	x0, [x29, #-0x10]
+  44d5c8:	01 70 40 f8	ldur	x1, [x0, #0x7]
+  44d5cc:	55 14 00 94	bl	0x452720  ; CsRepository.getImCredential
+  44d5d0:	e1 03 00 aa	mov	x1, x0
+  44d5d4:	a1 03 1e f8	stur	x1, [x29, #-0x20]
+  44d5d8:	41 65 ef 97	bl	0x26adc  ; stub _iso_stub_AwaitStub
+  44d5dc:	e2 03 00 aa	mov	x2, x0
+  44d5e0:	a2 03 1e f8	stur	x2, [x29, #-0x20]
+  44d5e4:	40 f0 5f f8	ldur	x0, [x2, #-0x1]
+  44d5e8:	00 7c 4c d3	ubfx	x0, x0, #12, #20
+  44d5ec:	e1 03 02 aa	mov	x1, x2
+  44d5f0:	1e 04 40 d1	sub	x30, x0, #0x1, lsl #12
+  44d5f4:	be 7a 7e f8	ldr	x30, [x21, x30, lsl #3]
+  44d5f8:	c0 03 3f d6	blr	x30
+  44d5fc:	e4 03 00 aa	mov	x4, x0
+  44d600:	a3 03 5e f8	ldur	x3, [x29, #-0x20]
+  44d604:	a4 83 1d f8	stur	x4, [x29, #-0x28]
+  44d608:	62 70 40 f8	ldur	x2, [x3, #0x7]
+  44d60c:	e0 03 03 aa	mov	x0, x3
+  44d610:	e1 03 16 aa	mov	x1, x22
+  44d614:	1f 00 16 eb	cmp	x0, x22
+  44d618:	60 02 00 54	b.eq	0x44d664
+  44d61c:	40 02 00 36	tbz	w0, #0x0, 0x44d664
+  44d620:	63 a3 40 91	add	x3, x27, #0x28, lsl #12
+  44d624:	63 8c 41 f9	ldr	x3, [x3, #0x318]
+  44d628:	7e 17 40 f9	ldr	x30, [x27, #0x28]
+  44d62c:	de 73 40 f8	ldur	x30, [x30, #0x7]
+  44d630:	c0 03 3f d6	blr	x30
+  44d634:	ff 00 16 eb	cmp	x7, x22
+  44d638:	60 00 00 54	b.eq	0x44d644
+  44d63c:	47 01 20 37	tbnz	w7, #0x4, 0x44d664
+  44d640:	0b 00 00 14	b	0x44d66c
+  44d644:	68 a3 40 91	add	x8, x27, #0x28, lsl #12
+  44d648:	08 91 41 f9	ldr	x8, [x8, #0x320]
+  44d64c:	63 a3 40 91	add	x3, x27, #0x28, lsl #12
+  44d650:	63 94 41 f9	ldr	x3, [x3, #0x328]
+  44d654:	7e 2f 43 f9	ldr	x30, [x27, #0x658]
+  44d658:	de 73 40 f8	ldur	x30, [x30, #0x7]
+  44d65c:	c0 03 3f d6	blr	x30
+  44d660:	04 00 00 14	b	0x44d670
+  44d664:	c0 c2 00 91	add	x0, x22, #0x30
+  44d668:	02 00 00 14	b	0x44d670
+  44d66c:	c0 82 00 91	add	x0, x22, #0x20
+  44d670:	a0 05 20 37	tbnz	w0, #0x4, 0x44d724
+  44d674:	a0 83 5d f8	ldur	x0, [x29, #-0x28]
+  44d678:	1f 00 16 eb	cmp	x0, x22
+  44d67c:	40 05 00 54	b.eq	0x44d724
+  44d680:	02 70 40 f8	ldur	x2, [x0, #0x7]
+  44d684:	a1 03 5f f8	ldur	x1, [x29, #-0x10]
+  44d688:	e8 01 00 94	bl	0x44de28  ; TencentImCredentialService._decryptCredentialField
+  44d68c:	e1 03 00 aa	mov	x1, x0
+  44d690:	64 2b 41 f9	ldr	x4, [x27, #0x250]
+  44d694:	3e 6f ef 97	bl	0x2938c  ; int.tryParse
+  44d698:	1f 00 16 eb	cmp	x0, x22
+  44d69c:	60 06 00 54	b.eq	0x44d768
+  44d6a0:	03 fc 41 93	asr	x3, x0, #1
+  44d6a4:	40 00 00 36	tbz	w0, #0x0, 0x44d6ac
+  44d6a8:	03 70 40 f8	ldur	x3, [x0, #0x7]
+  44d6ac:	a3 03 1d f8	stur	x3, [x29, #-0x30]
+  44d6b0:	7f 00 00 f1	cmp	x3, #0x0
+  44d6b4:	ad 05 00 54	b.le	0x44d768
+  44d6b8:	a0 83 5d f8	ldur	x0, [x29, #-0x28]
+  44d6bc:	02 f0 40 f8	ldur	x2, [x0, #0xf]
+  44d6c0:	a1 03 5f f8	ldur	x1, [x29, #-0x10]
+  44d6c4:	d9 01 00 94	bl	0x44de28  ; TencentImCredentialService._decryptCredentialField
+  44d6c8:	a0 83 1d f8	stur	x0, [x29, #-0x28]
+  44d6cc:	01 70 40 f8	ldur	x1, [x0, #0x7]
+  44d6d0:	41 05 00 b4	cbz	x1, 0x44d778
+  44d6d4:	a6 83 5e f8	ldur	x6, [x29, #-0x18]
+  44d6d8:	a4 03 5d f8	ldur	x4, [x29, #-0x30]
+  44d6dc:	a1 03 5f f8	ldur	x1, [x29, #-0x10]
+  44d6e0:	e2 03 04 aa	mov	x2, x4
+  44d6e4:	e3 03 00 aa	mov	x3, x0
+  44d6e8:	e5 03 06 aa	mov	x5, x6
+  44d6ec:	2f 00 00 94	bl	0x44d7a8  ; TencentImCredentialService._generateUserSig
+  44d6f0:	a0 03 1f f8	stur	x0, [x29, #-0x10]
+  44d6f4:	2a 00 00 94	bl	0x44d79c  ; new TencentChatLoginInfo
+  44d6f8:	e1 03 00 aa	mov	x1, x0
+  44d6fc:	a0 03 5d f8	ldur	x0, [x29, #-0x30]
+  44d700:	20 70 00 f8	stur	x0, [x1, #0x7]
+  44d704:	a0 83 5e f8	ldur	x0, [x29, #-0x18]
+  44d708:	20 f0 00 f8	stur	x0, [x1, #0xf]
+  44d70c:	a0 03 5f f8	ldur	x0, [x29, #-0x10]
+  44d710:	20 70 01 f8	stur	x0, [x1, #0x17]
+  44d714:	a0 83 5d f8	ldur	x0, [x29, #-0x28]
+  44d718:	20 f0 01 f8	stur	x0, [x1, #0x1f]
+  44d71c:	e0 03 01 aa	mov	x0, x1
+  44d720:	58 64 ef 17	b	0x26880
+  44d724:	a1 03 5e f8	ldur	x1, [x29, #-0x20]
+  44d728:	79 18 ff 97	bl	0x41390c  ; ApiResult.message
+  44d72c:	01 70 40 f8	ldur	x1, [x0, #0x7]
+  44d730:	81 00 00 b4	cbz	x1, 0x44d740
+  44d734:	a1 03 5e f8	ldur	x1, [x29, #-0x20]
+  44d738:	75 18 ff 97	bl	0x41390c  ; ApiResult.message
+  44d73c:	03 00 00 14	b	0x44d748
+  44d740:	60 97 40 91	add	x0, x27, #0x25, lsl #12
+  44d744:	00 24 46 f9	ldr	x0, [x0, #0xc48]
+  44d748:	a0 03 1f f8	stur	x0, [x29, #-0x10]
+  44d74c:	11 00 00 94	bl	0x44d790  ; new TencentImCredentialException
+  44d750:	e1 03 00 aa	mov	x1, x0
+  44d754:	a0 03 5f f8	ldur	x0, [x29, #-0x10]
+  44d758:	20 70 00 f8	stur	x0, [x1, #0x7]
+  44d75c:	e0 03 01 aa	mov	x0, x1
+  44d760:	8c b6 0b 94	bl	0x73b190  ; stub _iso_stub_ThrowStub
+  44d764:	00 00 20 d4	brk	#0
+  44d768:	60 a3 40 91	add	x0, x27, #0x28, lsl #12
+  44d76c:	00 98 41 f9	ldr	x0, [x0, #0x330]
+  44d770:	88 b6 0b 94	bl	0x73b190  ; stub _iso_stub_ThrowStub
+  44d774:	00 00 20 d4	brk	#0
+  44d778:	60 a3 40 91	add	x0, x27, #0x28, lsl #12
+  44d77c:	00 9c 41 f9	ldr	x0, [x0, #0x338]
+  44d780:	84 b6 0b 94	bl	0x73b190  ; stub _iso_stub_ThrowStub
+  44d784:	00 00 20 d4	brk	#0
+  44d788:	39 be 0b 94	bl	0x73d06c  ; stub _iso_stub_StackOverflowSharedWithoutFPURegsStub
+  44d78c:	8b ff ff 17	b	0x44d5b8
+
+new TencentImCredentialException:
+  44d790:	82 23 8e d2	mov	x2, #0x711c
+  44d794:	22 07 a0 f2	movk	x2, #0x39, lsl #16
+  44d798:	98 b9 0b 14	b	0x73bdf8
+
+new TencentChatLoginInfo:
+  44d79c:	82 63 94 d2	mov	x2, #0xa31c
+  44d7a0:	22 07 a0 f2	movk	x2, #0x39, lsl #16
+  44d7a4:	95 b9 0b 14	b	0x73bdf8
+
+TencentImCredentialService._generateUserSig:
+  44d7a8:	fd 79 bf a9	stp	x29, x30, [x15, #-0x10]!
+  44d7ac:	fd 03 0f aa	mov	x29, x15
+  44d7b0:	ef 21 01 d1	sub	x15, x15, #0x48
+  44d7b4:	e0 03 02 aa	mov	x0, x2
+  44d7b8:	a2 83 1f f8	stur	x2, [x29, #-0x8]
+  44d7bc:	e2 03 03 aa	mov	x2, x3
+  44d7c0:	a3 03 1f f8	stur	x3, [x29, #-0x10]
+  44d7c4:	a5 83 1e f8	stur	x5, [x29, #-0x18]
+  44d7c8:	50 27 40 f9	ldr	x16, [x26, #0x48]
+  44d7cc:	ff 01 10 eb	cmp	x15, x16
+  44d7d0:	09 18 00 54	b.ls	0x44dad0
+  44d7d4:	7a ff ef 97	bl	0x4d5bc  ; DateTime._getCurrentMicros
+  44d7d8:	01 fc 41 93	asr	x1, x0, #1
+  44d7dc:	40 00 00 36	tbz	w0, #0x0, 0x44d7e4
+  44d7e0:	01 70 40 f8	ldur	x1, [x0, #0x7]
+  44d7e4:	61 00 f8 b6	tbz	x1, #0x3f, 0x44d7f0
+  44d7e8:	e4 7c 80 d2	mov	x4, #0x3e7
+  44d7ec:	02 00 00 14	b	0x44d7f4
+  44d7f0:	04 00 80 d2	mov	x4, #0x0
+  44d7f4:	a3 83 5f f8	ldur	x3, [x29, #-0x8]
+  44d7f8:	a0 83 5e f8	ldur	x0, [x29, #-0x18]
+  44d7fc:	02 7d 80 d2	mov	x2, #0x3e8
+  44d800:	25 00 04 cb	sub	x5, x1, x4
+  44d804:	a1 0c c2 9a	sdiv	x1, x5, x2
+  44d808:	24 0c c2 9a	sdiv	x4, x1, x2
+  44d80c:	a4 03 1e f8	stur	x4, [x29, #-0x20]
+  44d810:	e1 03 16 aa	mov	x1, x22
+  44d814:	42 02 80 d2	mov	x2, #0x12
+  44d818:	d4 bd 0b 94	bl	0x73cf68  ; stub _iso_stub_AllocateArrayStub
+  44d81c:	e2 03 00 aa	mov	x2, x0
+  44d820:	70 a3 40 91	add	x16, x27, #0x28, lsl #12
+  44d824:	10 a2 41 f9	ldr	x16, [x16, #0x340]
+  44d828:	50 70 01 f8	stur	x16, [x2, #0x17]
+  44d82c:	a3 83 5e f8	ldur	x3, [x29, #-0x18]
+  44d830:	43 f0 01 f8	stur	x3, [x2, #0x1f]
+  44d834:	70 a3 40 91	add	x16, x27, #0x28, lsl #12
+  44d838:	10 a6 41 f9	ldr	x16, [x16, #0x348]
+  44d83c:	50 70 02 f8	stur	x16, [x2, #0x27]
+  44d840:	a4 83 5f f8	ldur	x4, [x29, #-0x8]
+  44d844:	80 00 04 ab	adds	x0, x4, x4
+  44d848:	67 00 00 54	b.vc	0x44d854
+  44d84c:	68 be 0b 94	bl	0x73d1ec  ; stub _iso_stub_AllocateMintSharedWithoutFPURegsStub
+  44d850:	04 70 00 f8	stur	x4, [x0, #0x7]
+  44d854:	e1 03 02 aa	mov	x1, x2
+  44d858:	e4 03 00 aa	mov	x4, x0
+  44d85c:	a4 03 1d f8	stur	x4, [x29, #-0x30]
+  44d860:	39 bc 00 91	add	x25, x1, #0x2f
+  44d864:	20 03 00 f9	str	x0, [x25]
+  44d868:	e0 00 00 36	tbz	w0, #0x0, 0x44d884
+  44d86c:	30 f0 5f 38	ldurb	w16, [x1, #-0x1]
+  44d870:	11 f0 5f 38	ldurb	w17, [x0, #-0x1]
+  44d874:	30 0a 50 8a	and	x16, x17, x16, lsr #2
+  44d878:	1f 82 5c ea	tst	x16, x28, lsr #32
+  44d87c:	40 00 00 54	b.eq	0x44d884
+  44d880:	4d b6 0b 94	bl	0x73b1b4  ; stub _iso_stub_ArrayWriteBarrierStub
+  44d884:	70 a3 40 91	add	x16, x27, #0x28, lsl #12
+  44d888:	10 aa 41 f9	ldr	x16, [x16, #0x350]
+  44d88c:	50 70 03 f8	stur	x16, [x2, #0x37]
+  44d890:	a5 03 5e f8	ldur	x5, [x29, #-0x20]
+  44d894:	a0 00 05 ab	adds	x0, x5, x5
+  44d898:	67 00 00 54	b.vc	0x44d8a4
+  44d89c:	54 be 0b 94	bl	0x73d1ec  ; stub _iso_stub_AllocateMintSharedWithoutFPURegsStub
+  44d8a0:	05 70 00 f8	stur	x5, [x0, #0x7]
+  44d8a4:	e1 03 02 aa	mov	x1, x2
+  44d8a8:	e5 03 00 aa	mov	x5, x0
+  44d8ac:	a5 83 1d f8	stur	x5, [x29, #-0x28]
+  44d8b0:	39 fc 00 91	add	x25, x1, #0x3f
+  44d8b4:	20 03 00 f9	str	x0, [x25]
+  44d8b8:	e0 00 00 36	tbz	w0, #0x0, 0x44d8d4
+  44d8bc:	30 f0 5f 38	ldurb	w16, [x1, #-0x1]
+  44d8c0:	11 f0 5f 38	ldurb	w17, [x0, #-0x1]
+  44d8c4:	30 0a 50 8a	and	x16, x17, x16, lsr #2
+  44d8c8:	1f 82 5c ea	tst	x16, x28, lsr #32
+  44d8cc:	40 00 00 54	b.eq	0x44d8d4
+  44d8d0:	39 b6 0b 94	bl	0x73b1b4  ; stub _iso_stub_ArrayWriteBarrierStub
+  44d8d4:	70 a3 40 91	add	x16, x27, #0x28, lsl #12
+  44d8d8:	10 ae 41 f9	ldr	x16, [x16, #0x358]
+  44d8dc:	50 70 04 f8	stur	x16, [x2, #0x47]
+  44d8e0:	10 a0 8e d2	mov	x16, #0x7500
+  44d8e4:	50 02 a0 f2	movk	x16, #0x12, lsl #16
+  44d8e8:	50 f0 04 f8	stur	x16, [x2, #0x4f]
+  44d8ec:	70 1b 42 f9	ldr	x16, [x27, #0x430]
+  44d8f0:	50 70 05 f8	stur	x16, [x2, #0x57]
+  44d8f4:	e2 01 00 f9	str	x2, [x15]
+  44d8f8:	96 14 ef 97	bl	0x12b50  ; StringBase._interpolate
+  44d8fc:	a2 03 5f f8	ldur	x2, [x29, #-0x10]
+  44d900:	61 97 48 f9	ldr	x1, [x27, #0x1128]
+  44d904:	a0 03 1f f8	stur	x0, [x29, #-0x10]
+  44d908:	64 37 42 f9	ldr	x4, [x27, #0x468]
+  44d90c:	e0 11 08 94	bl	0x65208c  ; Utf8Encoder.convert
+  44d910:	61 a3 40 91	add	x1, x27, #0x28, lsl #12
+  44d914:	21 b0 41 f9	ldr	x1, [x1, #0x360]
+  44d918:	a0 83 1c f8	stur	x0, [x29, #-0x38]
+  44d91c:	40 01 00 94	bl	0x44de1c  ; new Hmac (#2)
+  44d920:	e1 03 00 aa	mov	x1, x0
+  44d924:	a2 83 5c f8	ldur	x2, [x29, #-0x38]
+  44d928:	a0 83 1c f8	stur	x0, [x29, #-0x38]
+  44d92c:	a0 00 00 94	bl	0x44dbac  ; new Hmac
+  44d930:	a2 03 5f f8	ldur	x2, [x29, #-0x10]
+  44d934:	61 97 48 f9	ldr	x1, [x27, #0x1128]
+  44d938:	64 37 42 f9	ldr	x4, [x27, #0x468]
+  44d93c:	d4 11 08 94	bl	0x65208c  ; Utf8Encoder.convert
+  44d940:	a1 83 5c f8	ldur	x1, [x29, #-0x38]
+  44d944:	e2 03 00 aa	mov	x2, x0
+  44d948:	90 15 08 94	bl	0x652f88  ; Hmac.convert
+  44d94c:	e1 03 16 aa	mov	x1, x22
+  44d950:	02 03 80 d2	mov	x2, #0x18
+  44d954:	a0 03 1f f8	stur	x0, [x29, #-0x10]
+  44d958:	84 bd 0b 94	bl	0x73cf68  ; stub _iso_stub_AllocateArrayStub
+  44d95c:	a0 83 1c f8	stur	x0, [x29, #-0x38]
+  44d960:	70 a3 40 91	add	x16, x27, #0x28, lsl #12
+  44d964:	10 b6 41 f9	ldr	x16, [x16, #0x368]
+  44d968:	10 70 01 f8	stur	x16, [x0, #0x17]
+  44d96c:	70 a3 40 91	add	x16, x27, #0x28, lsl #12
+  44d970:	10 ba 41 f9	ldr	x16, [x16, #0x370]
+  44d974:	10 f0 01 f8	stur	x16, [x0, #0x1f]
+  44d978:	70 a3 40 91	add	x16, x27, #0x28, lsl #12
+  44d97c:	10 be 41 f9	ldr	x16, [x16, #0x378]
+  44d980:	10 70 02 f8	stur	x16, [x0, #0x27]
+  44d984:	a1 83 5e f8	ldur	x1, [x29, #-0x18]
+  44d988:	01 f0 02 f8	stur	x1, [x0, #0x2f]
+  44d98c:	70 a3 40 91	add	x16, x27, #0x28, lsl #12
+  44d990:	10 c2 41 f9	ldr	x16, [x16, #0x380]
+  44d994:	10 70 03 f8	stur	x16, [x0, #0x37]
+  44d998:	a1 03 5d f8	ldur	x1, [x29, #-0x30]
+  44d99c:	01 f0 03 f8	stur	x1, [x0, #0x3f]
+  44d9a0:	70 a3 40 91	add	x16, x27, #0x28, lsl #12
+  44d9a4:	10 c6 41 f9	ldr	x16, [x16, #0x388]
+  44d9a8:	10 70 04 f8	stur	x16, [x0, #0x47]
+  44d9ac:	10 a0 8e d2	mov	x16, #0x7500
+  44d9b0:	50 02 a0 f2	movk	x16, #0x12, lsl #16
+  44d9b4:	10 f0 04 f8	stur	x16, [x0, #0x4f]
+  44d9b8:	70 a3 40 91	add	x16, x27, #0x28, lsl #12
+  44d9bc:	10 ca 41 f9	ldr	x16, [x16, #0x390]
+  44d9c0:	10 70 05 f8	stur	x16, [x0, #0x57]
+  44d9c4:	a1 83 5d f8	ldur	x1, [x29, #-0x28]
+  44d9c8:	01 f0 05 f8	stur	x1, [x0, #0x5f]
+  44d9cc:	70 a3 40 91	add	x16, x27, #0x28, lsl #12
+  44d9d0:	10 ce 41 f9	ldr	x16, [x16, #0x398]
+  44d9d4:	10 70 06 f8	stur	x16, [x0, #0x67]
+  44d9d8:	a1 03 5f f8	ldur	x1, [x29, #-0x10]
+  44d9dc:	22 70 40 f8	ldur	x2, [x1, #0x7]
+  44d9e0:	e1 03 02 aa	mov	x1, x2
+  44d9e4:	65 00 00 94	bl	0x44db78  ; base64Encode
+  44d9e8:	a1 83 5c f8	ldur	x1, [x29, #-0x38]
+  44d9ec:	39 bc 01 91	add	x25, x1, #0x6f
+  44d9f0:	20 03 00 f9	str	x0, [x25]
+  44d9f4:	e0 00 00 36	tbz	w0, #0x0, 0x44da10
+  44d9f8:	30 f0 5f 38	ldurb	w16, [x1, #-0x1]
+  44d9fc:	11 f0 5f 38	ldurb	w17, [x0, #-0x1]
+  44da00:	30 0a 50 8a	and	x16, x17, x16, lsr #2
+  44da04:	1f 82 5c ea	tst	x16, x28, lsr #32
+  44da08:	40 00 00 54	b.eq	0x44da10
+  44da0c:	ea b5 0b 94	bl	0x73b1b4  ; stub _iso_stub_ArrayWriteBarrierStub
+  44da10:	70 8b 4b f9	ldr	x16, [x27, #0x1710]
+  44da14:	be 83 5c f8	ldur	x30, [x29, #-0x38]
+  44da18:	fe 41 00 a9	stp	x30, x16, [x15]
+  44da1c:	f5 4c ef 97	bl	0x20df0  ; new Map._fromLiteral
+  44da20:	61 23 40 91	add	x1, x27, #0x8, lsl #12
+  44da24:	21 e4 43 f9	ldr	x1, [x1, #0x7c8]
+  44da28:	a0 03 1f f8	stur	x0, [x29, #-0x10]
+  44da2c:	50 00 00 94	bl	0x44db6c  ; new ZLibCodec
+  44da30:	e1 03 00 aa	mov	x1, x0
+  44da34:	c0 00 80 d2	mov	x0, #0x6
+  44da38:	a1 83 1e f8	stur	x1, [x29, #-0x18]
+  44da3c:	20 f0 00 f8	stur	x0, [x1, #0xf]
+  44da40:	e0 01 80 d2	mov	x0, #0xf
+  44da44:	20 70 02 f8	stur	x0, [x1, #0x27]
+  44da48:	00 01 80 d2	mov	x0, #0x8
+  44da4c:	20 70 01 f8	stur	x0, [x1, #0x17]
+  44da50:	3f f0 01 f8	stur	xzr, [x1, #0x1f]
+  44da54:	c0 c2 00 91	add	x0, x22, #0x30
+  44da58:	20 f0 02 f8	stur	x0, [x1, #0x2f]
+  44da5c:	1f 00 00 94	bl	0x44dad8  ; validateZLibStrategy
+  44da60:	a1 03 5f f8	ldur	x1, [x29, #-0x10]
+  44da64:	64 2b 41 f9	ldr	x4, [x27, #0x250]
+  44da68:	d3 80 f2 97	bl	0xeddb4  ; jsonEncode
+  44da6c:	e2 03 00 aa	mov	x2, x0
+  44da70:	61 97 48 f9	ldr	x1, [x27, #0x1128]
+  44da74:	64 37 42 f9	ldr	x4, [x27, #0x468]
+  44da78:	85 11 08 94	bl	0x65208c  ; Utf8Encoder.convert
+  44da7c:	a1 83 5e f8	ldur	x1, [x29, #-0x18]
+  44da80:	e2 03 00 aa	mov	x2, x0
+  44da84:	7d a8 07 94	bl	0x637c78  ; Codec.encode
+  44da88:	e1 03 00 aa	mov	x1, x0
+  44da8c:	3b 00 00 94	bl	0x44db78  ; base64Encode
+  44da90:	e1 03 00 aa	mov	x1, x0
+  44da94:	62 ef 4c f9	ldr	x2, [x27, #0x19d8]
+  44da98:	63 93 40 91	add	x3, x27, #0x24, lsl #12
+  44da9c:	63 b8 42 f9	ldr	x3, [x3, #0x570]
+  44daa0:	e9 3b ef 97	bl	0x1ca44  ; StringBase.replaceAll
+  44daa4:	e1 03 00 aa	mov	x1, x0
+  44daa8:	62 63 47 f9	ldr	x2, [x27, #0xec0]
+  44daac:	63 db 4c f9	ldr	x3, [x27, #0x19b0]
+  44dab0:	e5 3b ef 97	bl	0x1ca44  ; StringBase.replaceAll
+  44dab4:	e1 03 00 aa	mov	x1, x0
+  44dab8:	62 83 48 f9	ldr	x2, [x27, #0x1100]
+  44dabc:	63 db 53 f9	ldr	x3, [x27, #0x27b0]
+  44dac0:	e1 3b ef 97	bl	0x1ca44  ; StringBase.replaceAll
+  44dac4:	ef 03 1d aa	mov	x15, x29
+  44dac8:	fd 79 c1 a8	ldp	x29, x30, [x15], #0x10
+  44dacc:	c0 03 5f d6	ret
+  44dad0:	67 bd 0b 94	bl	0x73d06c  ; stub _iso_stub_StackOverflowSharedWithoutFPURegsStub
+  44dad4:	40 ff ff 17	b	0x44d7d4
+
+validateZLibStrategy:
+  44dad8:	fd 79 bf a9	stp	x29, x30, [x15, #-0x10]!
+  44dadc:	fd 03 0f aa	mov	x29, x15
+  44dae0:	01 00 80 d2	mov	x1, #0x0
+  44dae4:	60 2f 40 91	add	x0, x27, #0xb, lsl #12
+  44dae8:	00 d8 41 f9	ldr	x0, [x0, #0x3b0]
+  44daec:	50 27 40 f9	ldr	x16, [x26, #0x48]
+  44daf0:	ff 01 10 eb	cmp	x15, x16
+  44daf4:	89 03 00 54	b.ls	0x44db64
+  44daf8:	3f 14 00 f1	cmp	x1, #0x5
+  44dafc:	2a 01 00 54	b.ge	0x44db20
+  44db00:	10 0c 01 8b	add	x16, x0, x1, lsl #3
+  44db04:	02 72 41 f8	ldur	x2, [x16, #0x17]
+  44db08:	82 00 00 b4	cbz	x2, 0x44db18
+  44db0c:	22 04 00 91	add	x2, x1, #0x1
+  44db10:	e1 03 02 aa	mov	x1, x2
+  44db14:	f6 ff ff 17	b	0x44daec
+  44db18:	e0 03 01 aa	mov	x0, x1
+  44db1c:	02 00 00 14	b	0x44db24
+  44db20:	00 00 80 92	mov	x0, #-0x1
+  44db24:	1f 04 00 b1	cmn	x0, #0x1
+  44db28:	a0 00 00 54	b.eq	0x44db3c
+  44db2c:	e0 03 16 aa	mov	x0, x22
+  44db30:	ef 03 1d aa	mov	x15, x29
+  44db34:	fd 79 c1 a8	ldp	x29, x30, [x15], #0x10
+  44db38:	c0 03 5f d6	ret
+  44db3c:	3a 0a ef 97	bl	0x10424  ; new ArgumentError
+  44db40:	e1 03 00 aa	mov	x1, x0
+  44db44:	60 2f 40 91	add	x0, x27, #0xb, lsl #12
+  44db48:	00 dc 41 f9	ldr	x0, [x0, #0x3b8]
+  44db4c:	20 70 02 f8	stur	x0, [x1, #0x27]
+  44db50:	c0 c2 00 91	add	x0, x22, #0x30
+  44db54:	20 f0 00 f8	stur	x0, [x1, #0xf]
+  44db58:	e0 03 01 aa	mov	x0, x1
+  44db5c:	8d b5 0b 94	bl	0x73b190  ; stub _iso_stub_ThrowStub
+  44db60:	00 00 20 d4	brk	#0
+  44db64:	42 bd 0b 94	bl	0x73d06c  ; stub _iso_stub_StackOverflowSharedWithoutFPURegsStub
+  44db68:	e4 ff ff 17	b	0x44daf8
+
+new ZLibCodec:
+  44db6c:	82 83 82 d2	mov	x2, #0x141c
+  44db70:	c2 2b a0 f2	movk	x2, #0x15e, lsl #16
+  44db74:	89 b8 0b 14	b	0x73bd98
+
+base64Encode:
+  44db78:	fd 79 bf a9	stp	x29, x30, [x15, #-0x10]!
+  44db7c:	fd 03 0f aa	mov	x29, x15
+  44db80:	e2 03 01 aa	mov	x2, x1
+  44db84:	50 27 40 f9	ldr	x16, [x26, #0x48]
+  44db88:	ff 01 10 eb	cmp	x15, x16
+  44db8c:	c9 00 00 54	b.ls	0x44dba4
+  44db90:	61 43 49 f9	ldr	x1, [x27, #0x1280]
+  44db94:	39 a8 07 94	bl	0x637c78  ; Codec.encode
+  44db98:	ef 03 1d aa	mov	x15, x29
+  44db9c:	fd 79 c1 a8	ldp	x29, x30, [x15], #0x10
+  44dba0:	c0 03 5f d6	ret
+  44dba4:	32 bd 0b 94	bl	0x73d06c  ; stub _iso_stub_StackOverflowSharedWithoutFPURegsStub
+  44dba8:	fa ff ff 17	b	0x44db90
+
+new Hmac:
+  44dbac:	fd 79 bf a9	stp	x29, x30, [x15, #-0x10]!
+  44dbb0:	fd 03 0f aa	mov	x29, x15
+  44dbb4:	ef 81 00 d1	sub	x15, x15, #0x20
+  44dbb8:	60 a3 40 91	add	x0, x27, #0x28, lsl #12
+  44dbbc:	00 e0 41 f9	ldr	x0, [x0, #0x3c0]
+  44dbc0:	a1 83 1f f8	stur	x1, [x29, #-0x8]
+  44dbc4:	a2 03 1f f8	stur	x2, [x29, #-0x10]
+  44dbc8:	50 27 40 f9	ldr	x16, [x26, #0x48]
+  44dbcc:	ff 01 10 eb	cmp	x15, x16
+  44dbd0:	29 12 00 54	b.ls	0x44de14
+  44dbd4:	20 f0 00 f8	stur	x0, [x1, #0xf]
+  44dbd8:	04 10 80 d2	mov	x4, #0x80
+  44dbdc:	15 bc 0b 94	bl	0x73cc30  ; stub _iso_stub_AllocateUint8ArrayStub
+  44dbe0:	e3 03 00 aa	mov	x3, x0
+  44dbe4:	a1 83 5f f8	ldur	x1, [x29, #-0x8]
+  44dbe8:	a3 83 1e f8	stur	x3, [x29, #-0x18]
+  44dbec:	20 70 01 f8	stur	x0, [x1, #0x17]
+  44dbf0:	30 f0 5f 38	ldurb	w16, [x1, #-0x1]
+  44dbf4:	11 f0 5f 38	ldurb	w17, [x0, #-0x1]
+  44dbf8:	30 0a 50 8a	and	x16, x17, x16, lsr #2
+  44dbfc:	1f 82 5c ea	tst	x16, x28, lsr #32
+  44dc00:	40 00 00 54	b.eq	0x44dc08
+  44dc04:	7d b6 0b 94	bl	0x73b5f8  ; stub _iso_stub_WriteBarrierWrappersStub
+  44dc08:	a2 03 5f f8	ldur	x2, [x29, #-0x10]
+  44dc0c:	40 f0 40 f8	ldur	x0, [x2, #0xf]
+  44dc10:	01 fc 41 93	asr	x1, x0, #1
+  44dc14:	3f 00 01 f1	cmp	x1, #0x40
+  44dc18:	ed 00 00 54	b.le	0x44dc34
+  44dc1c:	61 a3 40 91	add	x1, x27, #0x28, lsl #12
+  44dc20:	21 e0 41 f9	ldr	x1, [x1, #0x3c0]
+  44dc24:	bc 14 08 94	bl	0x652f14  ; Hash.convert
+  44dc28:	01 70 40 f8	ldur	x1, [x0, #0x7]
+  44dc2c:	e0 03 01 aa	mov	x0, x1
+  44dc30:	02 00 00 14	b	0x44dc38
+  44dc34:	e0 03 02 aa	mov	x0, x2
+  44dc38:	a0 03 1f f8	stur	x0, [x29, #-0x10]
+  44dc3c:	04 f0 40 f8	ldur	x4, [x0, #0xf]
+  44dc40:	a4 83 1f f8	stur	x4, [x29, #-0x8]
+  44dc44:	85 fc 41 93	asr	x5, x4, #1
+  44dc48:	a5 03 1e f8	stur	x5, [x29, #-0x20]
+  44dc4c:	65 00 f8 b7	tbnz	x5, #0x3f, 0x44dc58
+  44dc50:	bf 00 01 f1	cmp	x5, #0x40
+  44dc54:	cd 00 00 54	b.le	0x44dc6c
+  44dc58:	e2 03 04 aa	mov	x2, x4
+  44dc5c:	01 00 80 d2	mov	x1, #0x0
+  44dc60:	03 08 80 d2	mov	x3, #0x40
+  44dc64:	64 d3 41 f9	ldr	x4, [x27, #0x3a0]
+  44dc68:	1f 1a ef 97	bl	0x144e4  ; RangeError.checkValidRange
+  44dc6c:	a2 03 5f f8	ldur	x2, [x29, #-0x10]
+  44dc70:	40 f0 5f f8	ldur	x0, [x2, #-0x1]
+  44dc74:	00 7c 4c d3	ubfx	x0, x0, #12, #20
+  44dc78:	10 c0 01 d1	sub	x16, x0, #0x70
+  44dc7c:	1f de 00 f1	cmp	x16, #0x37
+  44dc80:	48 0b 00 54	b.hi	0x44dde8
+  44dc84:	40 f0 5f f8	ldur	x0, [x2, #-0x1]
+  44dc88:	00 7c 4c d3	ubfx	x0, x0, #12, #20
+  44dc8c:	e1 03 02 aa	mov	x1, x2
+  44dc90:	1e 80 33 d1	sub	x30, x0, #0xce0
+  44dc94:	be 7a 7e f8	ldr	x30, [x21, x30, lsl #3]
+  44dc98:	c0 03 3f d6	blr	x30
+  44dc9c:	1f 04 00 f1	cmp	x0, #0x1
+  44dca0:	c1 09 00 54	b.ne	0x44ddd8
+  44dca4:	a2 03 5e f8	ldur	x2, [x29, #-0x20]
+  44dca8:	e2 0a 00 b4	cbz	x2, 0x44de04
+  44dcac:	a0 83 5f f8	ldur	x0, [x29, #-0x8]
+  44dcb0:	1f 00 20 f1	cmp	x0, #0x800
+  44dcb4:	aa 06 00 54	b.ge	0x44dd88
+  44dcb8:	a5 03 5f f8	ldur	x5, [x29, #-0x10]
+  44dcbc:	a1 83 5e f8	ldur	x1, [x29, #-0x18]
+  44dcc0:	a2 70 40 f8	ldur	x2, [x5, #0x7]
+  44dcc4:	e4 03 00 aa	mov	x4, x0
+  44dcc8:	e3 03 02 aa	mov	x3, x2
+  44dccc:	20 5c 00 91	add	x0, x1, #0x17
+  44dcd0:	a4 05 00 b4	cbz	x4, 0x44dd84
+  44dcd4:	1f 00 03 eb	cmp	x0, x3
+  44dcd8:	29 03 00 54	b.ls	0x44dd3c
+  44dcdc:	70 04 84 8b	add	x16, x3, x4, asr #1
+  44dce0:	1f 00 10 eb	cmp	x0, x16
+  44dce4:	c2 02 00 54	b.hs	0x44dd3c
+  44dce8:	e3 03 10 aa	mov	x3, x16
+  44dcec:	00 04 84 8b	add	x0, x0, x4, asr #1
+  44dcf0:	64 00 20 36	tbz	w4, #0x4, 0x44dcfc
+  44dcf4:	70 8c 5f f8	ldr	x16, [x3, #-0x8]!
+  44dcf8:	10 8c 1f f8	str	x16, [x0, #-0x8]!
+  44dcfc:	64 00 18 36	tbz	w4, #0x3, 0x44dd08
+  44dd00:	70 cc 5f b8	ldr	w16, [x3, #-0x4]!
+  44dd04:	10 cc 1f b8	str	w16, [x0, #-0x4]!
+  44dd08:	64 00 10 36	tbz	w4, #0x2, 0x44dd14
+  44dd0c:	70 ec 5f 78	ldrh	w16, [x3, #-0x2]!
+  44dd10:	10 ec 1f 78	strh	w16, [x0, #-0x2]!
+  44dd14:	64 00 08 36	tbz	w4, #0x1, 0x44dd20
+  44dd18:	70 fc 5f 38	ldrb	w16, [x3, #-0x1]!
+  44dd1c:	10 fc 1f 38	strb	w16, [x0, #-0x1]!
+  44dd20:	84 ec 7b f2	ands	x4, x4, #0xffffffffffffffe1
+  44dd24:	00 03 00 54	b.eq	0x44dd84
+  44dd28:	70 44 ff a9	ldp	x16, x17, [x3, #-0x10]!
+  44dd2c:	10 44 bf a9	stp	x16, x17, [x0, #-0x10]!
+  44dd30:	84 80 00 f1	subs	x4, x4, #0x20
+  44dd34:	a1 ff ff 54	b.ne	0x44dd28
+  44dd38:	13 00 00 14	b	0x44dd84
+  44dd3c:	64 00 20 36	tbz	w4, #0x4, 0x44dd48
+  44dd40:	70 84 40 f8	ldr	x16, [x3], #0x8
+  44dd44:	10 84 00 f8	str	x16, [x0], #0x8
+  44dd48:	64 00 18 36	tbz	w4, #0x3, 0x44dd54
+  44dd4c:	70 44 40 b8	ldr	w16, [x3], #0x4
+  44dd50:	10 44 00 b8	str	w16, [x0], #0x4
+  44dd54:	64 00 10 36	tbz	w4, #0x2, 0x44dd60
+  44dd58:	70 24 40 78	ldrh	w16, [x3], #0x2
+  44dd5c:	10 24 00 78	strh	w16, [x0], #0x2
+  44dd60:	64 00 08 36	tbz	w4, #0x1, 0x44dd6c
+  44dd64:	70 14 40 38	ldrb	w16, [x3], #0x1
+  44dd68:	10 14 00 38	strb	w16, [x0], #0x1
+  44dd6c:	84 ec 7b f2	ands	x4, x4, #0xffffffffffffffe1
+  44dd70:	a0 00 00 54	b.eq	0x44dd84
+  44dd74:	70 44 c1 a8	ldp	x16, x17, [x3], #0x10
+  44dd78:	10 44 81 a8	stp	x16, x17, [x0], #0x10
+  44dd7c:	84 80 00 f1	subs	x4, x4, #0x20
+  44dd80:	a1 ff ff 54	b.ne	0x44dd74
+  44dd84:	20 00 00 14	b	0x44de04
+  44dd88:	a5 03 5f f8	ldur	x5, [x29, #-0x10]
+  44dd8c:	a1 83 5e f8	ldur	x1, [x29, #-0x18]
+  44dd90:	20 70 40 f8	ldur	x0, [x1, #0x7]
+  44dd94:	a1 70 40 f8	ldur	x1, [x5, #0x7]
+  44dd98:	e3 03 1a aa	mov	x3, x26
+  44dd9c:	69 40 44 f9	ldr	x9, [x3, #0x880]
+  44dda0:	f1 03 1d aa	mov	x17, x29
+  44dda4:	fd 8d 1f f8	str	x29, [x15, #-0x8]!
+  44dda8:	fd 03 0f aa	mov	x29, x15
+  44ddac:	ef ed 7c 92	and	x15, x15, #0xfffffffffffffff0
+  44ddb0:	f3 03 00 91	mov	x19, sp
+  44ddb4:	ff 01 00 91	mov	sp, x15
+  44ddb8:	49 63 03 f9	str	x9, [x26, #0x6c0]
+  44ddbc:	20 01 3f d6	blr	x9
+  44ddc0:	10 01 80 d2	mov	x16, #0x8
+  44ddc4:	50 63 03 f9	str	x16, [x26, #0x6c0]
+  44ddc8:	7f 02 00 91	mov	sp, x19
+  44ddcc:	ef 03 1d aa	mov	x15, x29
+  44ddd0:	fd 85 40 f8	ldr	x29, [x15], #0x8
+  44ddd4:	0c 00 00 14	b	0x44de04
+  44ddd8:	a5 03 5f f8	ldur	x5, [x29, #-0x10]
+  44dddc:	a1 83 5e f8	ldur	x1, [x29, #-0x18]
+  44dde0:	a2 03 5e f8	ldur	x2, [x29, #-0x20]
+  44dde4:	04 00 00 14	b	0x44ddf4
+  44dde8:	e5 03 02 aa	mov	x5, x2
+  44ddec:	a1 83 5e f8	ldur	x1, [x29, #-0x18]
+  44ddf0:	a2 03 5e f8	ldur	x2, [x29, #-0x20]
+  44ddf4:	e3 03 02 aa	mov	x3, x2
+  44ddf8:	02 00 80 d2	mov	x2, #0x0
+  44ddfc:	06 00 80 d2	mov	x6, #0x0
+  44de00:	21 a2 03 94	bl	0x536684  ; TypedIntListMixin._slowSetRange (#16)
+  44de04:	e0 03 16 aa	mov	x0, x22
+  44de08:	ef 03 1d aa	mov	x15, x29
+  44de0c:	fd 79 c1 a8	ldp	x29, x30, [x15], #0x10
+  44de10:	c0 03 5f d6	ret
+  44de14:	96 bc 0b 94	bl	0x73d06c  ; stub _iso_stub_StackOverflowSharedWithoutFPURegsStub
+  44de18:	6f ff ff 17	b	0x44dbd4
+
+new Hmac (#2):
+  44de1c:	82 43 8e d2	mov	x2, #0x721c
+  44de20:	02 2c a0 f2	movk	x2, #0x160, lsl #16
+  44de24:	dd b7 0b 14	b	0x73bd98
+
+TencentImCredentialService._decryptCredentialField:
+  44de28:	fd 79 bf a9	stp	x29, x30, [x15, #-0x10]!
+  44de2c:	fd 03 0f aa	mov	x29, x15
+  44de30:	ef e1 02 d1	sub	x15, x15, #0xb8
+  44de34:	e0 03 01 aa	mov	x0, x1
+  44de38:	a1 03 18 f8	stur	x1, [x29, #-0x80]
+  44de3c:	e1 03 02 aa	mov	x1, x2
+  44de40:	50 27 40 f9	ldr	x16, [x26, #0x48]
+  44de44:	ff 01 10 eb	cmp	x15, x16
+  44de48:	09 1a 00 54	b.ls	0x44e188
+  44de4c:	69 8e ef 97	bl	0x317f0  ; StringBase.trim
+  44de50:	01 70 40 f8	ldur	x1, [x0, #0x7]
+  44de54:	a1 00 00 b5	cbnz	x1, 0x44de68
+  44de58:	60 a3 40 f9	ldr	x0, [x27, #0x140]
+  44de5c:	ef 03 1d aa	mov	x15, x29
+  44de60:	fd 79 c1 a8	ldp	x29, x30, [x15], #0x10
+  44de64:	c0 03 5f d6	ret
+  44de68:	a1 03 58 f8	ldur	x1, [x29, #-0x80]
+  44de6c:	e2 03 00 aa	mov	x2, x0
+  44de70:	b9 11 00 94	bl	0x452554  ; TencentImCredentialService._decodeBase64
+  44de74:	61 97 48 f9	ldr	x1, [x27, #0x1128]
+  44de78:	62 a3 40 91	add	x2, x27, #0x28, lsl #12
+  44de7c:	42 f8 41 f9	ldr	x2, [x2, #0x3f0]
+  44de80:	a0 03 18 f8	stur	x0, [x29, #-0x80]
+  44de84:	64 37 42 f9	ldr	x4, [x27, #0x468]
+  44de88:	81 10 08 94	bl	0x65208c  ; Utf8Encoder.convert
+  44de8c:	a0 03 17 f8	stur	x0, [x29, #-0x90]
+  44de90:	01 f0 40 f8	ldur	x1, [x0, #0xf]
+  44de94:	e4 03 01 aa	mov	x4, x1
+  44de98:	a1 83 17 f8	stur	x1, [x29, #-0x88]
+  44de9c:	65 bb 0b 94	bl	0x73cc30  ; stub _iso_stub_AllocateUint8ArrayStub
+  44dea0:	e4 03 00 aa	mov	x4, x0
+  44dea4:	a0 83 57 f8	ldur	x0, [x29, #-0x88]
+  44dea8:	a4 03 16 f8	stur	x4, [x29, #-0xa0]
+  44deac:	05 fc 41 93	asr	x5, x0, #1
+  44deb0:	a5 83 16 f8	stur	x5, [x29, #-0x98]
+  44deb4:	c5 00 f8 b6	tbz	x5, #0x3f, 0x44decc
+  44deb8:	e2 03 00 aa	mov	x2, x0
+  44debc:	e3 03 05 aa	mov	x3, x5
+  44dec0:	01 00 80 d2	mov	x1, #0x0
+  44dec4:	64 d3 41 f9	ldr	x4, [x27, #0x3a0]
+  44dec8:	87 19 ef 97	bl	0x144e4  ; RangeError.checkValidRange
+  44decc:	a2 83 56 f8	ldur	x2, [x29, #-0x98]
+  44ded0:	62 00 00 b5	cbnz	x2, 0x44dedc
+  44ded4:	b4 03 56 f8	ldur	x20, [x29, #-0xa0]
+  44ded8:	4b 00 00 14	b	0x44e004
+  44dedc:	a0 83 57 f8	ldur	x0, [x29, #-0x88]
+  44dee0:	1f 00 20 f1	cmp	x0, #0x800
+  44dee4:	8a 06 00 54	b.ge	0x44dfb4
+  44dee8:	a1 03 57 f8	ldur	x1, [x29, #-0x90]
+  44deec:	b4 03 56 f8	ldur	x20, [x29, #-0xa0]
+  44def0:	e3 03 00 aa	mov	x3, x0
+  44def4:	22 5c 00 91	add	x2, x1, #0x17
+  44def8:	80 5e 00 91	add	x0, x20, #0x17
+  44defc:	a3 05 00 b4	cbz	x3, 0x44dfb0
+  44df00:	1f 00 02 eb	cmp	x0, x2
+  44df04:	29 03 00 54	b.ls	0x44df68
+  44df08:	50 04 83 8b	add	x16, x2, x3, asr #1
+  44df0c:	1f 00 10 eb	cmp	x0, x16
+  44df10:	c2 02 00 54	b.hs	0x44df68
+  44df14:	e2 03 10 aa	mov	x2, x16
+  44df18:	00 04 83 8b	add	x0, x0, x3, asr #1
+  44df1c:	63 00 20 36	tbz	w3, #0x4, 0x44df28
+  44df20:	50 8c 5f f8	ldr	x16, [x2, #-0x8]!
+  44df24:	10 8c 1f f8	str	x16, [x0, #-0x8]!
+  44df28:	63 00 18 36	tbz	w3, #0x3, 0x44df34
+  44df2c:	50 cc 5f b8	ldr	w16, [x2, #-0x4]!
+  44df30:	10 cc 1f b8	str	w16, [x0, #-0x4]!
+  44df34:	63 00 10 36	tbz	w3, #0x2, 0x44df40
+  44df38:	50 ec 5f 78	ldrh	w16, [x2, #-0x2]!
+  44df3c:	10 ec 1f 78	strh	w16, [x0, #-0x2]!
+  44df40:	63 00 08 36	tbz	w3, #0x1, 0x44df4c
+  44df44:	50 fc 5f 38	ldrb	w16, [x2, #-0x1]!
+  44df48:	10 fc 1f 38	strb	w16, [x0, #-0x1]!
+  44df4c:	63 ec 7b f2	ands	x3, x3, #0xffffffffffffffe1
+  44df50:	00 03 00 54	b.eq	0x44dfb0
+  44df54:	50 44 ff a9	ldp	x16, x17, [x2, #-0x10]!
+  44df58:	10 44 bf a9	stp	x16, x17, [x0, #-0x10]!
+  44df5c:	63 80 00 f1	subs	x3, x3, #0x20
+  44df60:	a1 ff ff 54	b.ne	0x44df54
+  44df64:	13 00 00 14	b	0x44dfb0
+  44df68:	63 00 20 36	tbz	w3, #0x4, 0x44df74
+  44df6c:	50 84 40 f8	ldr	x16, [x2], #0x8
+  44df70:	10 84 00 f8	str	x16, [x0], #0x8
+  44df74:	63 00 18 36	tbz	w3, #0x3, 0x44df80
+  44df78:	50 44 40 b8	ldr	w16, [x2], #0x4
+  44df7c:	10 44 00 b8	str	w16, [x0], #0x4
+  44df80:	63 00 10 36	tbz	w3, #0x2, 0x44df8c
+  44df84:	50 24 40 78	ldrh	w16, [x2], #0x2
+  44df88:	10 24 00 78	strh	w16, [x0], #0x2
+  44df8c:	63 00 08 36	tbz	w3, #0x1, 0x44df98
+  44df90:	50 14 40 38	ldrb	w16, [x2], #0x1
+  44df94:	10 14 00 38	strb	w16, [x0], #0x1
+  44df98:	63 ec 7b f2	ands	x3, x3, #0xffffffffffffffe1
+  44df9c:	a0 00 00 54	b.eq	0x44dfb0
+  44dfa0:	50 44 c1 a8	ldp	x16, x17, [x2], #0x10
+  44dfa4:	10 44 81 a8	stp	x16, x17, [x0], #0x10
+  44dfa8:	63 80 00 f1	subs	x3, x3, #0x20
+  44dfac:	a1 ff ff 54	b.ne	0x44dfa0
+  44dfb0:	15 00 00 14	b	0x44e004
+  44dfb4:	a1 03 57 f8	ldur	x1, [x29, #-0x90]
+  44dfb8:	b4 03 56 f8	ldur	x20, [x29, #-0xa0]
+  44dfbc:	80 72 40 f8	ldur	x0, [x20, #0x7]
+  44dfc0:	23 70 40 f8	ldur	x3, [x1, #0x7]
+  44dfc4:	e1 03 1a aa	mov	x1, x26
+  44dfc8:	29 40 44 f9	ldr	x9, [x1, #0x880]
+  44dfcc:	e1 03 03 aa	mov	x1, x3
+  44dfd0:	f1 03 1d aa	mov	x17, x29
+  44dfd4:	fd 8d 1f f8	str	x29, [x15, #-0x8]!
+  44dfd8:	fd 03 0f aa	mov	x29, x15
+  44dfdc:	ef ed 7c 92	and	x15, x15, #0xfffffffffffffff0
+  44dfe0:	f3 03 00 91	mov	x19, sp
+  44dfe4:	ff 01 00 91	mov	sp, x15
+  44dfe8:	49 63 03 f9	str	x9, [x26, #0x6c0]
+  44dfec:	20 01 3f d6	blr	x9
+  44dff0:	10 01 80 d2	mov	x16, #0x8
+  44dff4:	50 63 03 f9	str	x16, [x26, #0x6c0]
+  44dff8:	7f 02 00 91	mov	sp, x19
+  44dffc:	ef 03 1d aa	mov	x15, x29
+  44e000:	fd 85 40 f8	ldr	x29, [x15], #0x8
+  44e004:	04 04 80 d2	mov	x4, #0x20
+  44e008:	0a bb 0b 94	bl	0x73cc30  ; stub _iso_stub_AllocateUint8ArrayStub
+  44e00c:	e1 03 00 aa	mov	x1, x0
+  44e010:	02 00 80 d2	mov	x2, #0x0
+  44e014:	03 02 80 d2	mov	x3, #0x10
+  44e018:	65 a3 40 91	add	x5, x27, #0x28, lsl #12
+  44e01c:	a5 fc 41 f9	ldr	x5, [x5, #0x3f8]
+  44e020:	06 00 80 d2	mov	x6, #0x0
+  44e024:	a0 83 17 f8	stur	x0, [x29, #-0x88]
+  44e028:	97 a1 03 94	bl	0x536684  ; TypedIntListMixin._slowSetRange (#16)
+  44e02c:	a1 03 56 f8	ldur	x1, [x29, #-0xa0]
+  44e030:	a0 83 57 f8	ldur	x0, [x29, #-0x88]
+  44e034:	45 11 00 94	bl	0x452548  ; new PaddedBlockCipherImpl
+  44e038:	a0 03 17 f8	stur	x0, [x29, #-0x90]
+  44e03c:	40 11 00 94	bl	0x45253c  ; new PKCS7Padding
+  44e040:	a0 83 15 f8	stur	x0, [x29, #-0xa8]
+  44e044:	3b 11 00 94	bl	0x452530  ; new CBCBlockCipher (#2)
+  44e048:	a0 03 15 f8	stur	x0, [x29, #-0xb0]
+  44e04c:	36 11 00 94	bl	0x452524  ; new AESEngine
+  44e050:	a0 83 14 f8	stur	x0, [x29, #-0xb8]
+  44e054:	1f 70 00 f8	stur	xzr, [x0, #0x7]
+  44e058:	41 47 40 f9	ldr	x1, [x26, #0x88]
+  44e05c:	01 f0 00 f8	stur	x1, [x0, #0xf]
+  44e060:	c3 c2 00 91	add	x3, x22, #0x30
+  44e064:	03 70 01 f8	stur	x3, [x0, #0x17]
+  44e068:	61 a7 47 f9	ldr	x1, [x27, #0xf48]
+  44e06c:	02 00 80 d2	mov	x2, #0x0
+  44e070:	be bb 0b 94	bl	0x73cf68  ; stub _iso_stub_AllocateArrayStub
+  44e074:	a2 83 54 f8	ldur	x2, [x29, #-0xb8]
+  44e078:	40 f0 01 f8	stur	x0, [x2, #0x1f]
+  44e07c:	a1 03 55 f8	ldur	x1, [x29, #-0xb0]
+  44e080:	f5 10 00 94	bl	0x452454  ; new CBCBlockCipher
+  44e084:	a0 83 55 f8	ldur	x0, [x29, #-0xa8]
+  44e088:	a2 03 57 f8	ldur	x2, [x29, #-0x90]
+  44e08c:	40 70 00 f8	stur	x0, [x2, #0x7]
+  44e090:	50 f0 5f 38	ldurb	w16, [x2, #-0x1]
+  44e094:	11 f0 5f 38	ldurb	w17, [x0, #-0x1]
+  44e098:	30 0a 50 8a	and	x16, x17, x16, lsr #2
+  44e09c:	1f 82 5c ea	tst	x16, x28, lsr #32
+  44e0a0:	40 00 00 54	b.eq	0x44e0a8
+  44e0a4:	5d b5 0b 94	bl	0x73b618  ; stub _iso_stub_WriteBarrierWrappersStub
+  44e0a8:	a0 03 55 f8	ldur	x0, [x29, #-0xb0]
+  44e0ac:	40 f0 00 f8	stur	x0, [x2, #0xf]
+  44e0b0:	50 f0 5f 38	ldurb	w16, [x2, #-0x1]
+  44e0b4:	11 f0 5f 38	ldurb	w17, [x0, #-0x1]
+  44e0b8:	30 0a 50 8a	and	x16, x17, x16, lsr #2
+  44e0bc:	1f 82 5c ea	tst	x16, x28, lsr #32
+  44e0c0:	40 00 00 54	b.eq	0x44e0c8
+  44e0c4:	55 b5 0b 94	bl	0x73b618  ; stub _iso_stub_WriteBarrierWrappersStub
+  44e0c8:	61 a3 40 91	add	x1, x27, #0x28, lsl #12
+  44e0cc:	21 00 42 f9	ldr	x1, [x1, #0x400]
+  44e0d0:	de 10 00 94	bl	0x452448  ; new PaddedBlockCipherParameters
+  44e0d4:	61 a3 40 91	add	x1, x27, #0x28, lsl #12
+  44e0d8:	21 04 42 f9	ldr	x1, [x1, #0x408]
+  44e0dc:	a0 83 15 f8	stur	x0, [x29, #-0xa8]
+  44e0e0:	d7 10 00 94	bl	0x45243c  ; new ParametersWithIV
+  44e0e4:	a0 03 15 f8	stur	x0, [x29, #-0xb0]
+  44e0e8:	d2 10 00 94	bl	0x452430  ; new KeyParameter
+  44e0ec:	e1 03 00 aa	mov	x1, x0
+  44e0f0:	a0 03 56 f8	ldur	x0, [x29, #-0xa0]
+  44e0f4:	20 70 00 f8	stur	x0, [x1, #0x7]
+  44e0f8:	a2 03 55 f8	ldur	x2, [x29, #-0xb0]
+  44e0fc:	41 70 01 f8	stur	x1, [x2, #0x17]
+  44e100:	a4 83 57 f8	ldur	x4, [x29, #-0x88]
+  44e104:	44 f0 00 f8	stur	x4, [x2, #0xf]
+  44e108:	a3 83 55 f8	ldur	x3, [x29, #-0xa8]
+  44e10c:	62 f0 00 f8	stur	x2, [x3, #0xf]
+  44e110:	a1 03 57 f8	ldur	x1, [x29, #-0x90]
+  44e114:	c2 c2 00 91	add	x2, x22, #0x30
+  44e118:	7d 09 00 94	bl	0x45070c  ; PaddedBlockCipherImpl.init
+  44e11c:	a1 03 57 f8	ldur	x1, [x29, #-0x90]
+  44e120:	a2 03 58 f8	ldur	x2, [x29, #-0x80]
+  44e124:	1b 00 00 94	bl	0x44e190  ; PaddedBlockCipherImpl.process
+  44e128:	e2 03 00 aa	mov	x2, x0
+  44e12c:	61 8b 48 f9	ldr	x1, [x27, #0x1110]
+  44e130:	64 37 42 f9	ldr	x4, [x27, #0x468]
+  44e134:	e0 a8 07 94	bl	0x6384b4  ; Utf8Codec.decode (#2)
+  44e138:	e1 03 00 aa	mov	x1, x0
+  44e13c:	ad 8d ef 97	bl	0x317f0  ; StringBase.trim
+  44e140:	ef 03 1d aa	mov	x15, x29
+  44e144:	fd 79 c1 a8	ldp	x29, x30, [x15], #0x10
+  44e148:	c0 03 5f d6	ret
+  44e14c:	af e3 02 d1	sub	x15, x29, #0xb8
+  44e150:	a2 03 58 f8	ldur	x2, [x29, #-0x80]
+  44e154:	61 8b 48 f9	ldr	x1, [x27, #0x1110]
+  44e158:	64 37 42 f9	ldr	x4, [x27, #0x468]
+  44e15c:	d6 a8 07 94	bl	0x6384b4  ; Utf8Codec.decode (#2)
+  44e160:	e1 03 00 aa	mov	x1, x0
+  44e164:	a3 8d ef 97	bl	0x317f0  ; StringBase.trim
+  44e168:	ef 03 1d aa	mov	x15, x29
+  44e16c:	fd 79 c1 a8	ldp	x29, x30, [x15], #0x10
+  44e170:	c0 03 5f d6	ret
+  44e174:	af e3 02 d1	sub	x15, x29, #0xb8
+  44e178:	60 a3 40 91	add	x0, x27, #0x28, lsl #12
+  44e17c:	00 08 42 f9	ldr	x0, [x0, #0x410]
+  44e180:	04 b4 0b 94	bl	0x73b190  ; stub _iso_stub_ThrowStub
+  44e184:	00 00 20 d4	brk	#0
+  44e188:	b9 bb 0b 94	bl	0x73d06c  ; stub _iso_stub_StackOverflowSharedWithoutFPURegsStub
+  44e18c:	30 ff ff 17	b	0x44de4c
+
+CsRepository.getImCredential:
+  452720:	fd 79 bf a9	stp	x29, x30, [x15, #-0x10]!
+  452724:	fd 03 0f aa	mov	x29, x15
+  452728:	50 27 40 f9	ldr	x16, [x26, #0x48]
+  45272c:	ff 01 10 eb	cmp	x15, x16
+  452730:	e9 00 00 54	b.ls	0x45274c
+  452734:	20 70 40 f8	ldur	x0, [x1, #0x7]
+  452738:	e1 03 00 aa	mov	x1, x0
+  45273c:	06 00 00 94	bl	0x452754  ; AppApi.getImCredential
+  452740:	ef 03 1d aa	mov	x15, x29
+  452744:	fd 79 c1 a8	ldp	x29, x30, [x15], #0x10
+  452748:	c0 03 5f d6	ret
+  45274c:	48 aa 0b 94	bl	0x73d06c  ; stub _iso_stub_StackOverflowSharedWithoutFPURegsStub
+  452750:	f9 ff ff 17	b	0x452734
+
+AppApi.getImCredential:
+  452754:	fd 79 bf a9	stp	x29, x30, [x15, #-0x10]!
+  452758:	fd 03 0f aa	mov	x29, x15
+  45275c:	ef e1 01 d1	sub	x15, x15, #0x78
+  452760:	b6 83 1f f8	stur	x22, [x29, #-0x8]
+  452764:	a1 83 1a f8	stur	x1, [x29, #-0x58]
+  452768:	50 27 40 f9	ldr	x16, [x26, #0x48]
+  45276c:	ff 01 10 eb	cmp	x15, x16
+  452770:	69 04 00 54	b.ls	0x4527fc
+  452774:	60 a3 40 91	add	x0, x27, #0x28, lsl #12
+  452778:	00 50 42 f9	ldr	x0, [x0, #0x4a0]
+  45277c:	69 51 ef 97	bl	0x26d20  ; stub _iso_stub_InitAsyncStub
+  452780:	a0 83 5a f8	ldur	x0, [x29, #-0x58]
+  452784:	01 70 40 f8	ldur	x1, [x0, #0x7]
+  452788:	e1 d9 00 a9	stp	x1, x22, [x15, #0x8]
+  45278c:	70 a3 40 91	add	x16, x27, #0x28, lsl #12
+  452790:	10 56 42 f9	ldr	x16, [x16, #0x4a8]
+  452794:	f0 01 00 f9	str	x16, [x15]
+  452798:	64 23 40 f9	ldr	x4, [x27, #0x40]
+  45279c:	d8 37 f2 97	bl	0xe06fc  ; DioMixin.get (#2)
+  4527a0:	e1 03 00 aa	mov	x1, x0
+  4527a4:	a1 03 1a f8	stur	x1, [x29, #-0x60]
+  4527a8:	cd 50 ef 97	bl	0x26adc  ; stub _iso_stub_AwaitStub
+  4527ac:	61 a3 40 91	add	x1, x27, #0x28, lsl #12
+  4527b0:	21 58 42 f9	ldr	x1, [x1, #0x4b0]
+  4527b4:	e2 03 16 aa	mov	x2, x22
+  4527b8:	a0 03 1a f8	stur	x0, [x29, #-0x60]
+  4527bc:	a4 a6 0b 94	bl	0x73c24c  ; stub _iso_stub_AllocateClosureStub
+  4527c0:	70 a3 40 91	add	x16, x27, #0x28, lsl #12
+  4527c4:	10 5e 42 f9	ldr	x16, [x16, #0x4b8]
+  4527c8:	be 03 5a f8	ldur	x30, [x29, #-0x60]
+  4527cc:	fe c1 00 a9	stp	x30, x16, [x15, #0x8]
+  4527d0:	e0 01 00 f9	str	x0, [x15]
+  4527d4:	64 23 40 f9	ldr	x4, [x27, #0x40]
+  4527d8:	5c a8 f3 97	bl	0x13c948  ; handleResponse
+  4527dc:	29 50 ef 17	b	0x26880
+  4527e0:	af e3 01 d1	sub	x15, x29, #0x78
+  4527e4:	70 a3 40 91	add	x16, x27, #0x28, lsl #12
+  4527e8:	10 5e 42 f9	ldr	x16, [x16, #0x4b8]
+  4527ec:	e0 41 00 a9	stp	x0, x16, [x15]
+  4527f0:	64 37 47 f9	ldr	x4, [x27, #0xe68]
+  4527f4:	63 35 f2 97	bl	0xdfd80  ; handleError
+  4527f8:	22 50 ef 17	b	0x26880
+  4527fc:	1c aa 0b 94	bl	0x73d06c  ; stub _iso_stub_StackOverflowSharedWithoutFPURegsStub
+  452800:	dd ff ff 17	b	0x452774
+
+AppApi.getImCredential.<anonymous closure>:
+  452804:	fd 79 bf a9	stp	x29, x30, [x15, #-0x10]!
+  452808:	fd 03 0f aa	mov	x29, x15
+  45280c:	50 27 40 f9	ldr	x16, [x26, #0x48]
+  452810:	ff 01 10 eb	cmp	x15, x16
+  452814:	e9 00 00 54	b.ls	0x452830
+  452818:	a2 0b 40 f9	ldr	x2, [x29, #0x10]
+  45281c:	e1 03 16 aa	mov	x1, x22
+  452820:	06 00 00 94	bl	0x452838  ; new ImCredentialResp.fromJson
+  452824:	ef 03 1d aa	mov	x15, x29
+  452828:	fd 79 c1 a8	ldp	x29, x30, [x15], #0x10
+  45282c:	c0 03 5f d6	ret
+  452830:	0f aa 0b 94	bl	0x73d06c  ; stub _iso_stub_StackOverflowSharedWithoutFPURegsStub
+  452834:	f9 ff ff 17	b	0x452818
+
+new ImCredentialResp.fromJson:
+  452838:	fd 79 bf a9	stp	x29, x30, [x15, #-0x10]!
+  45283c:	fd 03 0f aa	mov	x29, x15
+  452840:	ef 81 00 d1	sub	x15, x15, #0x20
+  452844:	50 27 40 f9	ldr	x16, [x26, #0x48]
+  452848:	ff 01 10 eb	cmp	x15, x16
+  45284c:	49 05 00 54	b.ls	0x4528f4
+  452850:	5f 00 16 eb	cmp	x2, x22
+  452854:	e1 00 00 54	b.ne	0x452870
+  452858:	70 8b 4b f9	ldr	x16, [x27, #0x1710]
+  45285c:	5e 53 40 f9	ldr	x30, [x26, #0xa0]
+  452860:	fe 41 00 a9	stp	x30, x16, [x15]
+  452864:	63 39 ef 97	bl	0x20df0  ; new Map._fromLiteral
+  452868:	e3 03 00 aa	mov	x3, x0
+  45286c:	02 00 00 14	b	0x452874
+  452870:	e3 03 02 aa	mov	x3, x2
+  452874:	a3 83 1f f8	stur	x3, [x29, #-0x8]
+  452878:	60 f0 5f f8	ldur	x0, [x3, #-0x1]
+  45287c:	00 7c 4c d3	ubfx	x0, x0, #12, #20
+  452880:	e1 03 03 aa	mov	x1, x3
+  452884:	62 33 40 91	add	x2, x27, #0xc, lsl #12
+  452888:	42 18 45 f9	ldr	x2, [x2, #0xa30]
+  45288c:	1e 48 2c d1	sub	x30, x0, #0xb12
+  452890:	be 7a 7e f8	ldr	x30, [x21, x30, lsl #3]
+  452894:	c0 03 3f d6	blr	x30
+  452898:	e1 03 00 aa	mov	x1, x0
+  45289c:	1a 69 ff 97	bl	0x42cd04  ; asString
+  4528a0:	e3 03 00 aa	mov	x3, x0
+  4528a4:	a1 83 5f f8	ldur	x1, [x29, #-0x8]
+  4528a8:	a3 03 1f f8	stur	x3, [x29, #-0x10]
+  4528ac:	20 f0 5f f8	ldur	x0, [x1, #-0x1]
+  4528b0:	00 7c 4c d3	ubfx	x0, x0, #12, #20
+  4528b4:	62 a3 40 91	add	x2, x27, #0x28, lsl #12
+  4528b8:	42 60 42 f9	ldr	x2, [x2, #0x4c0]
+  4528bc:	1e 48 2c d1	sub	x30, x0, #0xb12
+  4528c0:	be 7a 7e f8	ldr	x30, [x21, x30, lsl #3]
+  4528c4:	c0 03 3f d6	blr	x30
+  4528c8:	e1 03 00 aa	mov	x1, x0
+  4528cc:	0e 69 ff 97	bl	0x42cd04  ; asString
+  4528d0:	a0 83 1f f8	stur	x0, [x29, #-0x8]
+  4528d4:	0a 00 00 94	bl	0x4528fc  ; new ImCredentialResp
+  4528d8:	a1 03 5f f8	ldur	x1, [x29, #-0x10]
+  4528dc:	01 70 00 f8	stur	x1, [x0, #0x7]
+  4528e0:	a1 83 5f f8	ldur	x1, [x29, #-0x8]
+  4528e4:	01 f0 00 f8	stur	x1, [x0, #0xf]
+  4528e8:	ef 03 1d aa	mov	x15, x29
+  4528ec:	fd 79 c1 a8	ldp	x29, x30, [x15], #0x10
+  4528f0:	c0 03 5f d6	ret
+  4528f4:	de a9 0b 94	bl	0x73d06c  ; stub _iso_stub_StackOverflowSharedWithoutFPURegsStub
+  4528f8:	d6 ff ff 17	b	0x452850
+
+new ImCredentialResp:
+  4528fc:	82 43 80 d2	mov	x2, #0x21c
+  452900:	a2 07 a0 f2	movk	x2, #0x3d, lsl #16
+  452904:	3d a5 0b 14	b	0x73bdf8
+
+new CounselorState:
+  452908:	82 43 88 d2	mov	x2, #0x421c
+
+SPHelper.saveTokenInfo:
+  580a8c:	fd 79 bf a9	stp	x29, x30, [x15, #-0x10]!
+  580a90:	fd 03 0f aa	mov	x29, x15
+  580a94:	ef 41 00 d1	sub	x15, x15, #0x10
+  580a98:	b6 83 1f f8	stur	x22, [x29, #-0x8]
+  580a9c:	e2 03 01 aa	mov	x2, x1
+  580aa0:	a1 03 1f f8	stur	x1, [x29, #-0x10]
+  580aa4:	50 27 40 f9	ldr	x16, [x26, #0x48]
+  580aa8:	ff 01 10 eb	cmp	x15, x16
+  580aac:	89 01 00 54	b.ls	0x580adc
+  580ab0:	60 df 41 f9	ldr	x0, [x27, #0x3b8]
+  580ab4:	9b 98 ea 97	bl	0x26d20  ; stub _iso_stub_InitAsyncStub
+  580ab8:	a2 03 5f f8	ldur	x2, [x29, #-0x10]
+  580abc:	61 2b 40 91	add	x1, x27, #0xa, lsl #12
+  580ac0:	21 04 42 f9	ldr	x1, [x1, #0x408]
+  580ac4:	a6 7a ed 97	bl	0xdf55c  ; SPHelper.saveString
+  580ac8:	e1 03 00 aa	mov	x1, x0
+  580acc:	a1 03 1f f8	stur	x1, [x29, #-0x10]
+  580ad0:	03 98 ea 97	bl	0x26adc  ; stub _iso_stub_AwaitStub
+  580ad4:	e0 03 16 aa	mov	x0, x22
+  580ad8:	6a 97 ea 17	b	0x26880
+  580adc:	64 f1 06 94	bl	0x73d06c  ; stub _iso_stub_StackOverflowSharedWithoutFPURegsStub
+  580ae0:	f4 ff ff 17	b	0x580ab0
+
+CourseVideoNotifier.selectPeriod:
+  5deccc:	fd 79 bf a9	stp	x29, x30, [x15, #-0x10]!
+  5decd0:	fd 03 0f aa	mov	x29, x15
+  5decd4:	ef 01 01 d1	sub	x15, x15, #0x40
+  5decd8:	b6 83 1f f8	stur	x22, [x29, #-0x8]
+  5decdc:	a1 03 1f f8	stur	x1, [x29, #-0x10]
+  5dece0:	a2 83 1e f8	stur	x2, [x29, #-0x18]
+  5dece4:	a3 03 1e f8	stur	x3, [x29, #-0x20]
+  5dece8:	50 27 40 f9	ldr	x16, [x26, #0x48]
+  5decec:	ff 01 10 eb	cmp	x15, x16
+  5decf0:	a9 09 00 54	b.ls	0x5dee24
+  5decf4:	60 df 41 f9	ldr	x0, [x27, #0x3b8]
+  5decf8:	0a 20 e9 97	bl	0x26d20  ; stub _iso_stub_InitAsyncStub
+  5decfc:	a1 03 5f f8	ldur	x1, [x29, #-0x10]
+  5ded00:	17 aa f6 97	bl	0x38955c  ; NotifierBase.state
+  5ded04:	01 f0 40 f8	ldur	x1, [x0, #0xf]
+  5ded08:	3f 00 16 eb	cmp	x1, x22
+  5ded0c:	61 00 00 54	b.ne	0x5ded18
+  5ded10:	e3 03 16 aa	mov	x3, x22
+  5ded14:	07 00 00 14	b	0x5ded30
+  5ded18:	22 70 40 f8	ldur	x2, [x1, #0x7]
+  5ded1c:	40 00 02 ab	adds	x0, x2, x2
+  5ded20:	67 00 00 54	b.vc	0x5ded2c
+  5ded24:	32 79 05 94	bl	0x73d1ec  ; stub _iso_stub_AllocateMintSharedWithoutFPURegsStub
+  5ded28:	02 70 00 f8	stur	x2, [x0, #0x7]
+  5ded2c:	e3 03 00 aa	mov	x3, x0
+  5ded30:	a2 83 5e f8	ldur	x2, [x29, #-0x18]
+  5ded34:	44 70 40 f8	ldur	x4, [x2, #0x7]
+  5ded38:	a4 83 1d f8	stur	x4, [x29, #-0x28]
+  5ded3c:	80 00 04 ab	adds	x0, x4, x4
+  5ded40:	67 00 00 54	b.vc	0x5ded4c
+  5ded44:	2a 79 05 94	bl	0x73d1ec  ; stub _iso_stub_AllocateMintSharedWithoutFPURegsStub
+  5ded48:	04 70 00 f8	stur	x4, [x0, #0x7]
+  5ded4c:	7f 00 00 eb	cmp	x3, x0
+  5ded50:	e0 01 00 54	b.eq	0x5ded8c
+  5ded54:	70 00 00 8a	and	x16, x3, x0
+  5ded58:	f0 01 00 36	tbz	w16, #0x0, 0x5ded94
+  5ded5c:	70 f0 5f f8	ldur	x16, [x3, #-0x1]
+  5ded60:	10 7e 4c d3	ubfx	x16, x16, #12, #20
+  5ded64:	1f f6 00 f1	cmp	x16, #0x3d
+  5ded68:	61 01 00 54	b.ne	0x5ded94
+  5ded6c:	10 f0 5f f8	ldur	x16, [x0, #-0x1]
+  5ded70:	10 7e 4c d3	ubfx	x16, x16, #12, #20
+  5ded74:	1f f6 00 f1	cmp	x16, #0x3d
+  5ded78:	e1 00 00 54	b.ne	0x5ded94
+  5ded7c:	70 70 40 f8	ldur	x16, [x3, #0x7]
+  5ded80:	11 70 40 f8	ldur	x17, [x0, #0x7]
+  5ded84:	1f 02 11 eb	cmp	x16, x17
+  5ded88:	61 00 00 54	b.ne	0x5ded94
+  5ded8c:	e0 03 16 aa	mov	x0, x22
+  5ded90:	bc 1e e9 17	b	0x26880
+  5ded94:	a3 03 5f f8	ldur	x3, [x29, #-0x10]
+  5ded98:	a0 03 5e f8	ldur	x0, [x29, #-0x20]
+  5ded9c:	e1 03 03 aa	mov	x1, x3
+  5deda0:	ef a9 f6 97	bl	0x38955c  ; NotifierBase.state
+  5deda4:	b0 83 5e f8	ldur	x16, [x29, #-0x18]
+  5deda8:	de 82 00 91	add	x30, x22, #0x20
+  5dedac:	fe c1 00 a9	stp	x30, x16, [x15, #0x8]
+  5dedb0:	d0 82 00 91	add	x16, x22, #0x20
+  5dedb4:	f0 01 00 f9	str	x16, [x15]
+  5dedb8:	e1 03 00 aa	mov	x1, x0
+  5dedbc:	64 bf 40 91	add	x4, x27, #0x2f, lsl #12
+  5dedc0:	84 e4 42 f9	ldr	x4, [x4, #0x5c8]
+  5dedc4:	3f a9 f6 97	bl	0x3892c0  ; CourseVideoState.copyWith
+  5dedc8:	e1 03 00 aa	mov	x1, x0
+  5dedcc:	a0 03 5f f8	ldur	x0, [x29, #-0x10]
+  5dedd0:	02 f0 40 f8	ldur	x2, [x0, #0xf]
+  5dedd4:	50 47 40 f9	ldr	x16, [x26, #0x88]
+  5dedd8:	5f 00 10 eb	cmp	x2, x16
+  5deddc:	80 02 00 54	b.eq	0x5dee2c
+  5dede0:	f0 03 01 aa	mov	x16, x1
+  5dede4:	e1 03 02 aa	mov	x1, x2
+  5dede8:	e2 03 10 aa	mov	x2, x16
+  5dedec:	a5 9c eb 97	bl	0xc6080  ; ProviderElementBase.setState
+  5dedf0:	a0 03 5f f8	ldur	x0, [x29, #-0x10]
+  5dedf4:	01 70 41 f8	ldur	x1, [x0, #0x17]
+  5dedf8:	a2 83 5d f8	ldur	x2, [x29, #-0x28]
+  5dedfc:	1b 00 00 94	bl	0x5dee68  ; OldRepository.finishPeriod
+  5dee00:	e1 03 00 aa	mov	x1, x0
+  5dee04:	a1 03 1f f8	stur	x1, [x29, #-0x10]
+  5dee08:	35 1f e9 97	bl	0x26adc  ; stub _iso_stub_AwaitStub
+  5dee0c:	a0 03 5e f8	ldur	x0, [x29, #-0x20]
+  5dee10:	01 70 42 f8	ldur	x1, [x0, #0x27]
+  5dee14:	a2 83 5e f8	ldur	x2, [x29, #-0x18]
+  5dee18:	08 00 00 94	bl	0x5dee38  ; CourseVideoPageState._playVideo
+  5dee1c:	e0 03 16 aa	mov	x0, x22
+  5dee20:	98 1e e9 17	b	0x26880
+  5dee24:	92 78 05 94	bl	0x73d06c  ; stub _iso_stub_StackOverflowSharedWithoutFPURegsStub
+  5dee28:	b3 ff ff 17	b	0x5decf4
+  5dee2c:	69 4f 40 91	add	x9, x27, #0x13, lsl #12
+  5dee30:	29 95 44 f9	ldr	x9, [x9, #0x928]
+  5dee34:	ce 7a 05 94	bl	0x73d96c  ; stub _iso_stub_LateInitializationErrorSharedWithoutFPURegsStub
+
+CourseVideoPageState._playVideo:
+  5dee38:	fd 79 bf a9	stp	x29, x30, [x15, #-0x10]!
+  5dee3c:	fd 03 0f aa	mov	x29, x15
+  5dee40:	50 27 40 f9	ldr	x16, [x26, #0x48]
+  5dee44:	ff 01 10 eb	cmp	x15, x16
+  5dee48:	c9 00 00 54	b.ls	0x5dee60
+  5dee4c:	50 c1 f6 97	bl	0x38f38c  ; CourseVideoPageState._playVideoAsync
+  5dee50:	e0 03 16 aa	mov	x0, x22
+  5dee54:	ef 03 1d aa	mov	x15, x29
+  5dee58:	fd 79 c1 a8	ldp	x29, x30, [x15], #0x10
+  5dee5c:	c0 03 5f d6	ret
+  5dee60:	83 78 05 94	bl	0x73d06c  ; stub _iso_stub_StackOverflowSharedWithoutFPURegsStub
+  5dee64:	fa ff ff 17	b	0x5dee4c
+
+OldRepository.finishPeriod:
+  5dee68:	fd 79 bf a9	stp	x29, x30, [x15, #-0x10]!
+  5dee6c:	fd 03 0f aa	mov	x29, x15
+  5dee70:	50 27 40 f9	ldr	x16, [x26, #0x48]
+  5dee74:	ff 01 10 eb	cmp	x15, x16
+  5dee78:	e9 00 00 54	b.ls	0x5dee94
+  5dee7c:	20 70 40 f8	ldur	x0, [x1, #0x7]
+  5dee80:	e1 03 00 aa	mov	x1, x0
+  5dee84:	06 00 00 94	bl	0x5dee9c  ; OldApi.finishPeriod
+  5dee88:	ef 03 1d aa	mov	x15, x29
+  5dee8c:	fd 79 c1 a8	ldp	x29, x30, [x15], #0x10
+  5dee90:	c0 03 5f d6	ret
+  5dee94:	76 78 05 94	bl	0x73d06c  ; stub _iso_stub_StackOverflowSharedWithoutFPURegsStub
+  5dee98:	f9 ff ff 17	b	0x5dee7c
+
+OldApi.finishPeriod:
+  5dee9c:	fd 79 bf a9	stp	x29, x30, [x15, #-0x10]!
+  5deea0:	fd 03 0f aa	mov	x29, x15
+  5deea4:	ef 21 03 d1	sub	x15, x15, #0xc8
+  5deea8:	b6 83 1f f8	stur	x22, [x29, #-0x8]
+  5deeac:	a1 03 17 f8	stur	x1, [x29, #-0x90]
+  5deeb0:	a2 83 16 f8	stur	x2, [x29, #-0x98]
+  5deeb4:	50 27 40 f9	ldr	x16, [x26, #0x48]
+  5deeb8:	ff 01 10 eb	cmp	x15, x16
+  5deebc:	29 14 00 54	b.ls	0x5df140
+  5deec0:	60 bf 40 91	add	x0, x27, #0x2f, lsl #12
+  5deec4:	00 e8 42 f9	ldr	x0, [x0, #0x5d0]
+  5deec8:	96 1f e9 97	bl	0x26d20  ; stub _iso_stub_InitAsyncStub
+  5deecc:	a3 03 57 f8	ldur	x3, [x29, #-0x90]
+  5deed0:	a0 83 56 f8	ldur	x0, [x29, #-0x98]
+  5deed4:	64 70 40 f8	ldur	x4, [x3, #0x7]
+  5deed8:	a4 03 16 f8	stur	x4, [x29, #-0xa0]
+  5deedc:	e1 03 16 aa	mov	x1, x22
+  5deee0:	82 00 80 d2	mov	x2, #0x4
+  5deee4:	21 78 05 94	bl	0x73cf68  ; stub _iso_stub_AllocateArrayStub
+  5deee8:	e2 03 00 aa	mov	x2, x0
+  5deeec:	70 67 40 91	add	x16, x27, #0x19, lsl #12
+  5deef0:	10 d6 47 f9	ldr	x16, [x16, #0xfa8]
+  5deef4:	50 70 01 f8	stur	x16, [x2, #0x17]
+  5deef8:	a3 83 56 f8	ldur	x3, [x29, #-0x98]
+  5deefc:	60 00 03 ab	adds	x0, x3, x3
+  5def00:	67 00 00 54	b.vc	0x5def0c
+  5def04:	ba 78 05 94	bl	0x73d1ec  ; stub _iso_stub_AllocateMintSharedWithoutFPURegsStub
+  5def08:	03 70 00 f8	stur	x3, [x0, #0x7]
+  5def0c:	40 f0 01 f8	stur	x0, [x2, #0x1f]
+  5def10:	70 8b 4b f9	ldr	x16, [x27, #0x1710]
+  5def14:	e2 41 00 a9	stp	x2, x16, [x15]
+  5def18:	b6 07 e9 97	bl	0x20df0  ; new Map._fromLiteral
+  5def1c:	b0 03 56 f8	ldur	x16, [x29, #-0xa0]
+  5def20:	f0 59 01 a9	stp	x16, x22, [x15, #0x10]
+  5def24:	70 bf 40 91	add	x16, x27, #0x2f, lsl #12
+  5def28:	10 ee 42 f9	ldr	x16, [x16, #0x5d8]
+  5def2c:	e0 41 00 a9	stp	x0, x16, [x15]
+  5def30:	64 3b 40 91	add	x4, x27, #0xe, lsl #12
+  5def34:	84 30 43 f9	ldr	x4, [x4, #0x660]
+  5def38:	a9 04 ec 97	bl	0xe01dc  ; DioMixin.post
+  5def3c:	e1 03 00 aa	mov	x1, x0
+  5def40:	a1 03 16 f8	stur	x1, [x29, #-0xa0]
+  5def44:	e6 1e e9 97	bl	0x26adc  ; stub _iso_stub_AwaitStub
+  5def48:	e3 03 00 aa	mov	x3, x0
+  5def4c:	a3 03 16 f8	stur	x3, [x29, #-0xa0]
+  5def50:	60 f0 41 f8	ldur	x0, [x3, #0x1f]
+  5def54:	1f 40 06 f1	cmp	x0, #0x190
+  5def58:	01 0c 00 54	b.ne	0x5df0d8
+  5def5c:	64 f0 40 f8	ldur	x4, [x3, #0xf]
+  5def60:	e0 03 04 aa	mov	x0, x4
+  5def64:	a4 03 17 f8	stur	x4, [x29, #-0x90]
+  5def68:	e2 03 16 aa	mov	x2, x22
+  5def6c:	e1 03 16 aa	mov	x1, x22
+  5def70:	68 5b 64 f9	ldr	x8, [x27, #0x48b0]
+  5def74:	63 bf 40 91	add	x3, x27, #0x2f, lsl #12
+  5def78:	63 f0 42 f9	ldr	x3, [x3, #0x5e0]
+  5def7c:	01 b6 e9 97	bl	0x4c780  ; assert type is Map<String, dynamic>
+  5def80:	a3 03 57 f8	ldur	x3, [x29, #-0x90]
+  5def84:	60 f0 5f f8	ldur	x0, [x3, #-0x1]
+  5def88:	00 7c 4c d3	ubfx	x0, x0, #12, #20
+  5def8c:	e1 03 03 aa	mov	x1, x3
+  5def90:	62 87 65 f9	ldr	x2, [x27, #0x4b08]
+  5def94:	1e 48 2c d1	sub	x30, x0, #0xb12
+  5def98:	be 7a 7e f8	ldr	x30, [x21, x30, lsl #3]
+  5def9c:	c0 03 3f d6	blr	x30
+  5defa0:	e3 03 00 aa	mov	x3, x0
+  5defa4:	e2 03 16 aa	mov	x2, x22
+  5defa8:	e1 03 16 aa	mov	x1, x22
+  5defac:	a3 83 15 f8	stur	x3, [x29, #-0xa8]
+  5defb0:	40 01 00 36	tbz	w0, #0x0, 0x5defd8
+  5defb4:	04 f0 5f f8	ldur	x4, [x0, #-0x1]
+  5defb8:	84 7c 4c d3	ubfx	x4, x4, #12, #20
+  5defbc:	84 f0 00 d1	sub	x4, x4, #0x3c
+  5defc0:	9f 04 00 f1	cmp	x4, #0x1
+  5defc4:	a9 00 00 54	b.ls	0x5defd8
+  5defc8:	68 b3 53 f9	ldr	x8, [x27, #0x2760]
+  5defcc:	63 bf 40 91	add	x3, x27, #0x2f, lsl #12
+  5defd0:	63 f8 42 f9	ldr	x3, [x3, #0x5f0]
+  5defd4:	50 be 05 94	bl	0x74e914  ; assert type is int?
+  5defd8:	a0 83 55 f8	ldur	x0, [x29, #-0xa8]
+  5defdc:	1f 00 16 eb	cmp	x0, x22
+  5defe0:	61 00 00 54	b.ne	0x5defec
+  5defe4:	04 00 80 92	mov	x4, #-0x1
+  5defe8:	05 00 00 14	b	0x5deffc
+  5defec:	01 fc 41 93	asr	x1, x0, #1
+  5deff0:	40 00 00 36	tbz	w0, #0x0, 0x5deff8
+  5deff4:	01 70 40 f8	ldur	x1, [x0, #0x7]
+  5deff8:	e4 03 01 aa	mov	x4, x1
+  5deffc:	a3 03 57 f8	ldur	x3, [x29, #-0x90]
+  5df000:	a4 83 16 f8	stur	x4, [x29, #-0x98]
+  5df004:	60 f0 5f f8	ldur	x0, [x3, #-0x1]
+  5df008:	00 7c 4c d3	ubfx	x0, x0, #12, #20
+  5df00c:	e1 03 03 aa	mov	x1, x3
+  5df010:	62 93 65 f9	ldr	x2, [x27, #0x4b20]
+  5df014:	1e 48 2c d1	sub	x30, x0, #0xb12
+  5df018:	be 7a 7e f8	ldr	x30, [x21, x30, lsl #3]
+  5df01c:	c0 03 3f d6	blr	x30
+  5df020:	e3 03 00 aa	mov	x3, x0
+  5df024:	e2 03 16 aa	mov	x2, x22
+  5df028:	e1 03 16 aa	mov	x1, x22
+  5df02c:	a3 83 15 f8	stur	x3, [x29, #-0xa8]
+  5df030:	84 07 80 d2	mov	x4, #0x3c
+  5df034:	60 00 00 36	tbz	w0, #0x0, 0x5df040
+  5df038:	04 f0 5f f8	ldur	x4, [x0, #-0x1]
+  5df03c:	84 7c 4c d3	ubfx	x4, x4, #12, #20
+  5df040:	84 78 01 d1	sub	x4, x4, #0x5e
+  5df044:	9f 04 00 f1	cmp	x4, #0x1
+  5df048:	a9 00 00 54	b.ls	0x5df05c
+  5df04c:	68 c7 4c f9	ldr	x8, [x27, #0x1988]
+  5df050:	63 bf 40 91	add	x3, x27, #0x2f, lsl #12
+  5df054:	63 00 43 f9	ldr	x3, [x3, #0x600]
+  5df058:	2d c5 e8 97	bl	0x1050c  ; assert type is String?
+  5df05c:	a0 83 55 f8	ldur	x0, [x29, #-0xa8]
+  5df060:	1f 00 16 eb	cmp	x0, x22
+  5df064:	61 00 00 54	b.ne	0x5df070
+  5df068:	61 a3 40 f9	ldr	x1, [x27, #0x140]
+  5df06c:	02 00 00 14	b	0x5df074
+  5df070:	e1 03 00 aa	mov	x1, x0
+  5df074:	a0 83 56 f8	ldur	x0, [x29, #-0x98]
+  5df078:	a1 03 17 f8	stur	x1, [x29, #-0x90]
+  5df07c:	33 00 00 94	bl	0x5df148  ; new OldBaseRsp
+  5df080:	e2 03 00 aa	mov	x2, x0
+  5df084:	a0 83 56 f8	ldur	x0, [x29, #-0x98]
+  5df088:	a2 83 15 f8	stur	x2, [x29, #-0xa8]
+  5df08c:	40 70 00 f8	stur	x0, [x2, #0x7]
+  5df090:	a3 03 57 f8	ldur	x3, [x29, #-0x90]
+  5df094:	43 f0 00 f8	stur	x3, [x2, #0xf]
+  5df098:	1f 20 03 f1	cmp	x0, #0xc8
+  5df09c:	e1 00 00 54	b.ne	0x5df0b8
+  5df0a0:	61 bf 40 91	add	x1, x27, #0x2f, lsl #12
+  5df0a4:	21 08 43 f9	ldr	x1, [x1, #0x610]
+  5df0a8:	61 f6 ff 97	bl	0x5dca2c  ; new OldSuccess
+  5df0ac:	a2 83 55 f8	ldur	x2, [x29, #-0xa8]
+  5df0b0:	02 f0 00 f8	stur	x2, [x0, #0xf]
+  5df0b4:	f3 1d e9 17	b	0x26880
+  5df0b8:	61 bf 40 91	add	x1, x27, #0x2f, lsl #12
+  5df0bc:	21 08 43 f9	ldr	x1, [x1, #0x610]
+  5df0c0:	58 f6 ff 97	bl	0x5dca20  ; new OldError
+  5df0c4:	e1 03 00 aa	mov	x1, x0
+  5df0c8:	a0 03 57 f8	ldur	x0, [x29, #-0x90]
+  5df0cc:	20 f0 00 f8	stur	x0, [x1, #0xf]
+  5df0d0:	e0 03 01 aa	mov	x0, x1
+  5df0d4:	eb 1d e9 17	b	0x26880
+  5df0d8:	e0 03 03 aa	mov	x0, x3
+  5df0dc:	01 70 42 f8	ldur	x1, [x0, #0x27]
+  5df0e0:	3f 00 16 eb	cmp	x1, x22
+  5df0e4:	61 00 00 54	b.ne	0x5df0f0
+  5df0e8:	60 9f 65 f9	ldr	x0, [x27, #0x4b38]
+  5df0ec:	02 00 00 14	b	0x5df0f4
+  5df0f0:	e0 03 01 aa	mov	x0, x1
+  5df0f4:	a0 03 17 f8	stur	x0, [x29, #-0x90]
+  5df0f8:	61 bf 40 91	add	x1, x27, #0x2f, lsl #12
+  5df0fc:	21 08 43 f9	ldr	x1, [x1, #0x610]
+  5df100:	48 f6 ff 97	bl	0x5dca20  ; new OldError
+  5df104:	e1 03 00 aa	mov	x1, x0
+  5df108:	a0 03 57 f8	ldur	x0, [x29, #-0x90]
+  5df10c:	20 f0 00 f8	stur	x0, [x1, #0xf]
+  5df110:	e0 03 01 aa	mov	x0, x1
+  5df114:	db 1d e9 17	b	0x26880
+  5df118:	af 23 03 d1	sub	x15, x29, #0xc8
+  5df11c:	e1 03 00 aa	mov	x1, x0
+  5df120:	fd f5 ff 97	bl	0x5dc914  ; getErrorMessage
+  5df124:	61 bf 40 91	add	x1, x27, #0x2f, lsl #12
+  5df128:	21 08 43 f9	ldr	x1, [x1, #0x610]
+  5df12c:	a0 03 17 f8	stur	x0, [x29, #-0x90]
+  5df130:	3c f6 ff 97	bl	0x5dca20  ; new OldError
+  5df134:	a1 03 57 f8	ldur	x1, [x29, #-0x90]
+  5df138:	01 f0 00 f8	stur	x1, [x0, #0xf]
+  5df13c:	d1 1d e9 17	b	0x26880
+  5df140:	cb 77 05 94	bl	0x73d06c  ; stub _iso_stub_StackOverflowSharedWithoutFPURegsStub
+  5df144:	5f ff ff 17	b	0x5deec0
+
+AppData.isSeriesCourseUser:
+  630ad4:	fd 79 bf a9	stp	x29, x30, [x15, #-0x10]!
+  630ad8:	fd 03 0f aa	mov	x29, x15
+  630adc:	50 27 40 f9	ldr	x16, [x26, #0x48]
+  630ae0:	ff 01 10 eb	cmp	x15, x16
+  630ae4:	69 01 00 54	b.ls	0x630b10
+  630ae8:	41 3b 40 f9	ldr	x1, [x26, #0x70]
+  630aec:	21 14 50 f9	ldr	x1, [x1, #0x2028]
+  630af0:	3f 00 16 eb	cmp	x1, x22
+  630af4:	60 00 00 54	b.eq	0x630b00
+  630af8:	08 00 00 94	bl	0x630b18  ; UserInfo.isSeriesCourseUser
+  630afc:	02 00 00 14	b	0x630b04
+  630b00:	c0 c2 00 91	add	x0, x22, #0x30
+  630b04:	ef 03 1d aa	mov	x15, x29
+  630b08:	fd 79 c1 a8	ldp	x29, x30, [x15], #0x10
+  630b0c:	c0 03 5f d6	ret
+  630b10:	57 31 04 94	bl	0x73d06c  ; stub _iso_stub_StackOverflowSharedWithoutFPURegsStub
+  630b14:	f5 ff ff 17	b	0x630ae8
+
+UserInfo.isSeriesCourseUser:
+  630b18:	22 70 46 f8	ldur	x2, [x1, #0x67]
+  630b1c:	41 70 40 f8	ldur	x1, [x2, #0x7]
+  630b20:	61 00 00 b5	cbnz	x1, 0x630b2c
+  630b24:	c0 c2 00 91	add	x0, x22, #0x30
+  630b28:	02 00 00 14	b	0x630b30
+  630b2c:	c0 82 00 91	add	x0, x22, #0x20
+  630b30:	c0 03 5f d6	ret

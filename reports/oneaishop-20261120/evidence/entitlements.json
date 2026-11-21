@@ -1,0 +1,10 @@
+{
+  "application-identifier": "LA5VS444F2.com.tongchong.aishop",
+  "aps-environment": "production",
+  "beta-reports-active": true,
+  "com.apple.developer.team-identifier": "LA5VS444F2",
+  "com.apple.security.application-groups": [
+    "group.com.tongchong.aishop"
+  ],
+  "get-task-allow": false
+}

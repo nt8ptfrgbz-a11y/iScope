@@ -29,6 +29,10 @@ struct WelcomeView: View {
                     .background(ScopeTheme.accent.opacity(0.025), in: RoundedRectangle(cornerRadius: 16))
                     .overlay(RoundedRectangle(cornerRadius: 16).strokeBorder(ScopeTheme.accent.opacity(0.25), style: StrokeStyle(lineWidth: 1, dash: [6])))
 
+                    Button { model.workflow.standaloneMode = true; model.showWorkflow = true } label: {
+                        Label("编译 Hook · 注入 dylib · 重签 IPA · 安装到设备", systemImage: "shippingbox")
+                    }.buttonStyle(.bordered)
+
                     HStack(alignment: .top, spacing: 24) {
                         feature("scope", "按功能定位", "中文关键词扩展\n字符串引用追踪")
                         feature("square.stack.3d.up", "还原应用结构", "类、Category 与协议\nSwift 符号还原")

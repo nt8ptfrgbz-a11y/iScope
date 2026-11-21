@@ -1,0 +1,26 @@
+{
+  "Name": "iOS Team Store Provisioning Profile: com.tongchong.aishop",
+  "CreationDate": "2026-06-08 08:57:01",
+  "ExpirationDate": "2027-05-14 06:25:07",
+  "ProvisionsAllDevices": null,
+  "Platform": [
+    "iOS",
+    "xrOS",
+    "visionOS"
+  ],
+  "ProvisionedDeviceCount": 0,
+  "Entitlements": {
+    "beta-reports-active": true,
+    "aps-environment": "production",
+    "com.apple.security.application-groups": [
+      "group.com.tongchong.aishop"
+    ],
+    "application-identifier": "LA5VS444F2.com.tongchong.aishop",
+    "keychain-access-groups": [
+      "LA5VS444F2.*",
+      "com.apple.token"
+    ],
+    "get-task-allow": false,
+    "com.apple.developer.team-identifier": "LA5VS444F2"
+  }
+}

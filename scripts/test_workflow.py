@@ -23,7 +23,7 @@ import workflow as w
 class WorkflowTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory(prefix='iScope backend 中文 ')
-        self.work = Path(self.temporary.name)
+        self.work = Path(self.temporary.name).resolve()
         self.parent = self.work / 'CounterHook'
         self.project = self.parent / 'CounterHook.xcodeproj'
         self.project.mkdir(parents=True)
@@ -127,6 +127,66 @@ class WorkflowTests(unittest.TestCase):
         self.assertIsNone(self.events[-1]['result']['dylib'])
         self.assertEqual(self.ipa.read_bytes(), b'original content')
 
+    def test_standalone_build_uses_source_directory_without_project(self):
+        hook = self.work / '自定义 hook.m'; hook.write_text('// source')
+        (self.work / '自定义 hook.dylib').write_bytes(b'previous build')
+        request = {'target': 'buildSource', 'sourcePath': str(hook), 'projectPath': '',
+                   'outputDirectory': str(self.work / 'ignored'), 'architectures': ['arm64', 'arm64e']}
+        def build(sources, output, **kwargs):
+            self.assertEqual(sources, [hook])
+            self.assertEqual(kwargs['architectures'], ['arm64', 'arm64e'])
+            output.write_bytes(b'new build'); return output
+        with patch.object(w, 'build_hook', build), patch.object(w, 'package_ipa', side_effect=AssertionError('must not inject')):
+            w.execute(request)
+        result = self.events[-1]['result']
+        self.assertEqual(Path(result['dylib']), self.work / '自定义 hook-2.dylib')
+        self.assertEqual((self.work / '自定义 hook.dylib').read_bytes(), b'previous build')
+        self.assertEqual(hook.read_text(), '// source')
+        self.assertEqual([e['stage'] for e in self.events if e.get('state') == 'skipped'], ['package', 'sign', 'install'])
+
+    def test_standalone_package_uses_dylib_directory_and_external_ipa(self):
+        folder = self.work / '动态库'; folder.mkdir()
+        dylibs = [folder / 'One.dylib', folder / 'Two.dylib']
+        for dylib in dylibs: dylib.write_bytes(b'library')
+        (folder / 'original-unsigned.ipa.report.json').write_text('{}')
+        request = {'target': 'packageExisting', 'inputPath': str(self.ipa), 'projectPath': '',
+                   'dylibPaths': [str(path) for path in dylibs], 'outputDirectory': str(folder)}
+        def package(source, selected, output):
+            self.assertEqual(source, self.ipa); self.assertEqual(selected, dylibs)
+            output.write_bytes(b'unsigned'); return output
+        with patch.object(w, 'input_bundle_id', return_value='com.example.counter'), \
+                patch.object(w, 'package_ipa', package), \
+                patch.object(w, 'build_hook', side_effect=AssertionError('must not build')), \
+                patch.object(w, 'resign_ipa', side_effect=AssertionError('must not sign')):
+            w.execute(request)
+        self.assertEqual(Path(self.events[-1]['result']['unsignedIPA']), folder / 'original-unsigned-2.ipa')
+        self.assertEqual(self.ipa.read_bytes(), b'original content')
+        self.assertEqual([e['stage'] for e in self.events if e.get('state') == 'skipped'], ['build', 'sign', 'install'])
+
+    def test_standalone_sign_skips_build_and_package_and_preserves_input(self):
+        (self.work / 'original-resign.ipa').write_bytes(b'previous signed')
+        request = {'target': 'signExisting', 'inputPath': str(self.ipa), 'projectPath': '',
+                   'outputDirectory': str(self.work / 'ignored')}
+        with self.mocked_pipeline(), patch.object(w, 'input_bundle_id', return_value='com.example.counter'), \
+                patch.object(w, 'package_ipa', side_effect=AssertionError('must not inject')), \
+                patch.object(w, 'stream_command', side_effect=AssertionError('must not build')):
+            w.execute(request)
+        result = self.events[-1]['result']
+        self.assertEqual(Path(result['signedIPA']), self.work / 'original-resign-2.ipa')
+        self.assertEqual(result['bundleIdentifier'], 'com.example.counter.regisn')
+        self.assertTrue(result['signatureVerified']); self.assertFalse(result['installed'])
+        self.assertEqual(self.ipa.read_bytes(), b'original content')
+        self.assertEqual((self.work / 'original-resign.ipa').read_bytes(), b'previous signed')
+        self.assertEqual([e['stage'] for e in self.events if e.get('state') == 'skipped'], ['build', 'package', 'install'])
+
+    def test_standalone_rejects_invalid_paths_and_records_failure(self):
+        request = {'target': 'packageExisting', 'inputPath': str(self.ipa),
+                   'outputDirectory': str(self.work), 'dylibPaths': []}
+        with self.assertRaisesRegex(ValueError, '至少选择一个'):
+            w.execute(request)
+        self.assertEqual(self.events[-1]['type'], 'artifact')
+        self.assertIsNone(self.events[-1]['result']['unsignedIPA'])
+
     def test_install_requires_explicit_devicectl_success(self):
         app = self.work / 'Test.app'; app.mkdir()
         (app / 'embedded.mobileprovision').write_bytes(b'profile')
@@ -147,7 +207,9 @@ class WorkflowTests(unittest.TestCase):
             self.assertEqual(result['installed'], outcome == 'success')
 
     def test_request_and_archive_validation(self):
-        for bad in ([], {'outputDirectory': ''}, {'outputDirectory': 'ok', 'stripExtensions': 'yes'}, {'outputDirectory': 'ok', 'inputPath': 'x\0y'}):
+        for bad in ([], {'outputDirectory': ''}, {'outputDirectory': 'ok', 'stripExtensions': 'yes'}, {'outputDirectory': 'ok', 'inputPath': 'x\0y'},
+                    {'outputDirectory': 'ok', 'sourcePath': []}, {'outputDirectory': 'ok', 'dylibPaths': ['x\0y']},
+                    {'outputDirectory': 'ok', 'architectures': ['x86_64']}):
             with self.assertRaises(ValueError): w.validate_request(bad)
         archive = self.work / 'mismatch.zip'
         with zipfile.ZipFile(archive, 'w') as target: target.writestr('safe.txt', 'data')

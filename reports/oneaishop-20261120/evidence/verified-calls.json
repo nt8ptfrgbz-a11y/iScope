@@ -1,0 +1,80 @@
+[
+  {
+    "call_va": "0x44d5cc",
+    "target_va": "0x452720",
+    "file_offset": "0x4515cc",
+    "instruction_hex": "55140094"
+  },
+  {
+    "call_va": "0x44d688",
+    "target_va": "0x44de28",
+    "file_offset": "0x451688",
+    "instruction_hex": "e8010094"
+  },
+  {
+    "call_va": "0x44d6c4",
+    "target_va": "0x44de28",
+    "file_offset": "0x4516c4",
+    "instruction_hex": "d9010094"
+  },
+  {
+    "call_va": "0x44d6ec",
+    "target_va": "0x44d7a8",
+    "file_offset": "0x4516ec",
+    "instruction_hex": "2f000094"
+  },
+  {
+    "call_va": "0x44d90c",
+    "target_va": "0x65208c",
+    "file_offset": "0x45190c",
+    "instruction_hex": "e0110894"
+  },
+  {
+    "call_va": "0x44d92c",
+    "target_va": "0x44dbac",
+    "file_offset": "0x45192c",
+    "instruction_hex": "a0000094"
+  },
+  {
+    "call_va": "0x44d93c",
+    "target_va": "0x65208c",
+    "file_offset": "0x45193c",
+    "instruction_hex": "d4110894"
+  },
+  {
+    "call_va": "0x44d948",
+    "target_va": "0x652f88",
+    "file_offset": "0x451948",
+    "instruction_hex": "90150894"
+  },
+  {
+    "call_va": "0x41083c",
+    "target_va": "0x4cad8",
+    "file_offset": "0x41483c",
+    "instruction_hex": "a7f0f097"
+  },
+  {
+    "call_va": "0x410860",
+    "target_va": "0x4ca98",
+    "file_offset": "0x414860",
+    "instruction_hex": "8ef0f097"
+  },
+  {
+    "call_va": "0x5587b8",
+    "target_va": "0x41081c",
+    "file_offset": "0x55c7b8",
+    "instruction_hex": "19e0fa97"
+  },
+  {
+    "call_va": "0x580ac4",
+    "target_va": "0xdf55c",
+    "file_offset": "0x584ac4",
+    "instruction_hex": "a67aed97"
+  },
+  {
+    "call_va": "0x5dedfc",
+    "target_va": "0x5dee68",
+    "file_offset": "0x5e2dfc",
+    "instruction_hex": "1b000094"
+  }
+]

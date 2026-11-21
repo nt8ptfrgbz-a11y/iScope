@@ -2,6 +2,7 @@ import Foundation
 
 public enum WorkflowTarget: String, Codable, CaseIterable, Identifiable, Sendable {
     case build, package, sign, install, installExisting
+    case buildSource, packageExisting, signExisting
     public var id: String { rawValue }
     public var title: String {
         switch self {
@@ -10,8 +11,12 @@ public enum WorkflowTarget: String, Codable, CaseIterable, Identifiable, Sendabl
         case .sign: return "编译、注入并重签"
         case .install: return "完整流程 · 签名并安装"
         case .installExisting: return "安装已有签名 IPA"
+        case .buildSource: return "编译 Hook 源码"
+        case .packageExisting: return "注入已有 dylib"
+        case .signExisting: return "重签已有 IPA"
         }
     }
+    public static let projectTargets: [Self] = [.build, .package, .sign, .install, .installExisting]
 }
 
 public struct WorkflowRequest: Codable, Sendable {
@@ -28,6 +33,10 @@ public struct WorkflowRequest: Codable, Sendable {
     public var stripExtensions = true
     public var isolateURLSchemes = false
     public var profileSearchDirectories: [String] = []
+    // Optional fields preserve compatibility with saved project configurations.
+    public var sourcePath: String?
+    public var dylibPaths: [String]?
+    public var architectures: [String]?
     public init() {}
 }
 

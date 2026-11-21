@@ -1,6 +1,7 @@
 from pathlib import Path
 import shutil
 import tempfile
+import unicodedata
 import zipfile
 
 from common import app_info, pack, prepare_output, publish, sha256, stage_input
@@ -49,9 +50,17 @@ def package_ipa(source, dylibs, output):
         pack(app.parent, archive_path)
         with zipfile.ZipFile(archive_path) as archive:
             import hashlib
+            # ditto writes UTF-8 names without setting ZIP's UTF-8 flag, and macOS
+            # may decompose Unicode filenames. Match the names actually archived.
+            members = {}
+            for entry in archive.infolist():
+                name = entry.filename
+                if not entry.flag_bits & 0x800:
+                    name = name.encode('cp437').decode('utf-8')
+                members[unicodedata.normalize('NFC', name)] = entry
             for name, expected in embedded_hashes.items():
                 digest = hashlib.sha256()
-                with archive.open(name) as stream:
+                with archive.open(members[unicodedata.normalize('NFC', name)]) as stream:
                     for block in iter(lambda: stream.read(1024 * 1024), b""):
                         digest.update(block)
                 if digest.hexdigest() != expected:

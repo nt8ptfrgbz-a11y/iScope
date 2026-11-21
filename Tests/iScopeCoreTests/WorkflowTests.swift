@@ -46,8 +46,36 @@ final class WorkflowTests: XCTestCase {
         XCTAssertThrowsError(try decoder.append(Data("{\"version\":2,\"type\":\"log\"}\n".utf8)) { _ in })
     }
 
+    func testSavedConfigurationWithoutStandaloneFieldsStillDecodes() throws {
+        var original = WorkflowRequest()
+        original.projectPath = "/tmp/Existing.xcodeproj"
+        original.bundleIdentifier = "com.example.saved"
+        let saved = try JSONEncoder().encode(original)
+        let restored = try JSONDecoder().decode(WorkflowRequest.self, from: saved)
+        XCTAssertEqual(restored.projectPath, original.projectPath)
+        XCTAssertEqual(restored.bundleIdentifier, original.bundleIdentifier)
+        XCTAssertNil(restored.sourcePath)
+        XCTAssertNil(restored.dylibPaths)
+        XCTAssertNil(restored.architectures)
+    }
+
+    private func executeStandalone(_ request: WorkflowRequest, completed: [String]) async throws -> WorkflowResult {
+        var result: WorkflowResult?
+        var stages: [String] = []
+        var logs = ""
+        do {
+            for try await event in WorkflowEngine.events(for: request) {
+                if let value = event.result { result = value }
+                if event.type == "stage", event.state == "done", let stage = event.stage { stages.append(stage) }
+                if let message = event.message { logs += message + "\n" }
+            }
+        } catch { throw ScopeError.tool(error.localizedDescription + "\n" + logs.suffix(12000)) }
+        XCTAssertEqual(stages, completed)
+        return try XCTUnwrap(result)
+    }
+
     func testRealBuildInjectionAndOptionalSigning() async throws {
-        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("iScope pipeline 中文 \(UUID().uuidString)")
+        let directory = FileManager.default.temporaryDirectory.resolvingSymlinksInPath().appendingPathComponent("iScope pipeline 中文 \(UUID().uuidString)")
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         defer { try? FileManager.default.removeItem(at: directory) }
         let app = directory.appendingPathComponent("Input/Payload/Counter.app")
@@ -114,6 +142,52 @@ final class WorkflowTests: XCTestCase {
             XCTAssertEqual(output.bundleIdentifier, bundleID + ".regisn")
             let snapshot = URL(fileURLWithPath: output.runDirectory).appendingPathComponent("SourceSnapshot/Hooks.m")
             XCTAssertTrue(try String(contentsOf: snapshot, encoding: .utf8).contains(bundleID + ".regisn"))
+        }
+
+        // Exercise the same JSON-lines entry point used by the four independent buttons.
+        let standalone = directory.appendingPathComponent("独立工具 输出")
+        try FileManager.default.createDirectory(at: standalone, withIntermediateDirectories: true)
+        let hook = standalone.appendingPathComponent("自定义 Hook.m")
+        try source.write(to: hook)
+        var build = WorkflowRequest()
+        build.target = .buildSource; build.sourcePath = hook.path
+        build.architectures = ["arm64", "arm64e"]
+        build.outputDirectory = standalone.path
+        let built = try await executeStandalone(build, completed: ["preflight", "build"])
+        let dylib = try XCTUnwrap(built.dylib)
+        XCTAssertEqual(URL(fileURLWithPath: dylib).resolvingSymlinksInPath().path, hook.deletingPathExtension().appendingPathExtension("dylib").resolvingSymlinksInPath().path)
+        XCTAssertEqual(try Data(contentsOf: hook), source)
+        let library = try Data(contentsOf: URL(fileURLWithPath: dylib))
+        let rebuilt = try await executeStandalone(build, completed: ["preflight", "build"])
+        XCTAssertEqual(URL(fileURLWithPath: try XCTUnwrap(rebuilt.dylib)).resolvingSymlinksInPath().path,
+                       standalone.appendingPathComponent("自定义 Hook-2.dylib").resolvingSymlinksInPath().path)
+        XCTAssertEqual(try Data(contentsOf: URL(fileURLWithPath: dylib)), library)
+        var inject = WorkflowRequest()
+        inject.target = .packageExisting; inject.inputPath = ipa.path
+        inject.dylibPaths = [dylib]; inject.outputDirectory = standalone.path
+        let injected = try await executeStandalone(inject, completed: ["preflight", "package"])
+        let unsigned = try XCTUnwrap(injected.unsignedIPA)
+        XCTAssertEqual(URL(fileURLWithPath: unsigned).deletingLastPathComponent().resolvingSymlinksInPath().path, standalone.resolvingSymlinksInPath().path)
+        XCTAssertFalse(injected.signatureVerified)
+        let standaloneExtracted = directory.appendingPathComponent("StandaloneVerified")
+        _ = try ProcessRunner.run("/usr/bin/ditto", ["-x", "-k", unsigned, standaloneExtracted.path])
+        let injectedLibrary = standaloneExtracted.appendingPathComponent("Payload/Counter.app/Frameworks/自定义 Hook.dylib")
+        XCTAssertEqual(try Data(contentsOf: injectedLibrary), library)
+        let injectedLoads = try ProcessRunner.run("/usr/bin/otool", ["-L", standaloneExtracted.appendingPathComponent("Payload/Counter.app/Main").path])
+        XCTAssertTrue(injectedLoads.contains("@executable_path/Frameworks/自定义 Hook.dylib"))
+        XCTAssertEqual(try Data(contentsOf: ipa), original)
+        if signing {
+            var resign = WorkflowRequest()
+            resign.target = .signExisting; resign.inputPath = unsigned
+            resign.outputDirectory = standalone.path
+            resign.profileSearchDirectories = request.profileSearchDirectories
+            let resigned = try await executeStandalone(resign, completed: ["preflight", "sign"])
+            XCTAssertTrue(resigned.signatureVerified)
+            XCTAssertFalse(resigned.installed)
+            XCTAssertNil(resigned.dylib)
+            XCTAssertNil(resigned.unsignedIPA)
+            XCTAssertEqual(resigned.bundleIdentifier, bundleID + ".regisn")
+            XCTAssertEqual(resigned.signedIPA, URL(fileURLWithPath: unsigned).deletingPathExtension().path + "-resign.ipa")
         }
     }
 }
